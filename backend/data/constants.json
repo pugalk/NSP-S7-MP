@@ -1,0 +1,64 @@
+{
+  "categories": [
+    "Central Government",
+    "State Government",
+    "Merit-Based",
+    "Need-Based",
+    "Community-Based",
+    "Minority",
+    "Women / Girls",
+    "Disability",
+    "Sports",
+    "Higher Education",
+    "Research",
+    "Institutional",
+    "Private / Corporate"
+  ],
+  "states": [
+    "Tamil Nadu",
+    "Kerala",
+    "Karnataka",
+    "Andhra Pradesh",
+    "Telangana",
+    "Maharashtra",
+    "Delhi",
+    "Gujarat",
+    "West Bengal",
+    "Rajasthan",
+    "Uttar Pradesh"
+  ],
+  "courses": [
+    "B.Tech",
+    "B.E",
+    "B.Sc",
+    "B.Com",
+    "B.A",
+    "BBA",
+    "M.Tech",
+    "M.Sc",
+    "MBA",
+    "Ph.D"
+  ],
+  "communities": [
+    "OC",
+    "BC",
+    "MBC",
+    "SC",
+    "ST",
+    "Minority",
+    "EWS"
+  ],
+  "requiredDocuments": [
+    "Aadhaar / Identity Document",
+    "Income Certificate",
+    "Community / Category Certificate",
+    "Bonafide Certificate",
+    "Marksheet",
+    "Bank Passbook",
+    "Passport-size Photograph",
+    "Disability Certificate",
+    "Sports Certificate",
+    "Previous Scholarship Certificate",
+    "Other Document"
+  ]
+}

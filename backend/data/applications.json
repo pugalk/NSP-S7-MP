@@ -1,0 +1,173 @@
+[
+  {
+    "id": "app_1793087991641",
+    "applicationId": "NSRP-2026-867929",
+    "scholarshipId": "1",
+    "scholarshipName": "National Merit Excellence Scholarship",
+    "category": "Merit-Based",
+    "amount": 50000,
+    "userEmail": "student@nsp.gov.in",
+    "applicantName": "Aravind Swaminathan",
+    "type": "Renewal",
+    "status": "Submitted",
+    "submittedAt": "2026-10-27T07:59:51.641Z",
+    "updatedAt": "2026-10-27T07:59:51.641Z",
+    "bankDetails": {},
+    "academicDetails": {
+      "percentage": "82",
+      "cgpa": "8.4",
+      "attendance": "88"
+    },
+    "documents": [],
+    "declaration": true,
+    "remarks": "Application submitted successfully. Awaiting initial document screening.",
+    "nextAction": "Nodal verification officer will screen certificates.",
+    "history": [
+      {
+        "status": "Submitted",
+        "at": "2026-10-27T07:59:51.641Z",
+        "by": "Student",
+        "remark": "Renewal application filed successfully."
+      }
+    ]
+  },
+  {
+    "id": "app_1792994646697",
+    "applicationId": "NSRP-2026-109098",
+    "scholarshipId": "2",
+    "scholarshipName": "Central Sector Post-Matric Scholarship",
+    "category": "Central Government",
+    "amount": 36000,
+    "userEmail": "student@nsp.gov.in",
+    "applicantName": "Aravind Swaminathan",
+    "type": "Fresh",
+    "status": "Approved",
+    "submittedAt": "2026-10-26T06:04:06.697Z",
+    "updatedAt": "2026-10-26T06:06:06.817Z",
+    "bankDetails": {
+      "bankName": "State Bank of India",
+      "accountNumber": "409182910492",
+      "ifscCode": "SBIN0001234",
+      "accountHolderName": "Aravind Swaminathan"
+    },
+    "academicDetails": {
+      "course": "B.Tech",
+      "year": "3",
+      "percentage": "82",
+      "cgpa": "8.4",
+      "attendance": "88"
+    },
+    "documents": [],
+    "declaration": true,
+    "remarks": "Application submitted successfully. Awaiting initial document screening.",
+    "nextAction": "Nodal verification officer will screen certificates.",
+    "history": [
+      {
+        "status": "Submitted",
+        "at": "2026-10-26T06:04:06.697Z",
+        "by": "Student",
+        "remark": "Fresh application filed successfully."
+      }
+    ]
+  },
+  {
+    "id": "app_demo_01",
+    "applicationId": "NSRP-2026-849201",
+    "scholarshipId": "1",
+    "scholarshipName": "National Merit Excellence Scholarship",
+    "category": "Merit-Based",
+    "amount": 50000,
+    "userEmail": "student@nsp.gov.in",
+    "applicantName": "Aravind Swaminathan",
+    "type": "Fresh",
+    "status": "Approved",
+    "submittedAt": "2026-08-10T11:30:00.000Z",
+    "updatedAt": "2026-10-27T07:59:33.609Z",
+    "bankDetails": {
+      "bankName": "State Bank of India",
+      "accountNumber": "XXXXXX4892",
+      "ifscCode": "SBIN0001234"
+    },
+    "remarks": "Academic marksheets verified. Income document under district review.",
+    "nextAction": "Re-upload corrected certificates on student portal.",
+    "history": [
+      {
+        "status": "Submitted",
+        "at": "2026-08-10T11:30:00.000Z",
+        "by": "Student",
+        "remark": "Initial submission"
+      },
+      {
+        "status": "Document Verification",
+        "at": "2026-08-15T09:40:00.000Z",
+        "by": "Nodal Officer",
+        "remark": "All certificates accepted"
+      },
+      {
+        "status": "Under Verification",
+        "at": "2026-08-25T14:20:00.000Z",
+        "by": "District Welfare Officer",
+        "remark": "Awaiting state quota clearance"
+      },
+      {
+        "status": "Resubmission Required",
+        "at": "2026-10-24T05:49:07.415Z",
+        "by": "Dr. Ramesh Kumar",
+        "remark": "Academic marksheets verified. Income document under district review."
+      }
+    ]
+  },
+  {
+    "id": "app_demo_02",
+    "applicationId": "NSRP-2026-302194",
+    "scholarshipId": "2",
+    "scholarshipName": "Central Sector Post-Matric Scholarship",
+    "category": "Central Government",
+    "amount": 36000,
+    "userEmail": "student@nsp.gov.in",
+    "applicantName": "Aravind Swaminathan",
+    "type": "Renewal",
+    "status": "Approved",
+    "submittedAt": "2026-07-20T10:15:00.000Z",
+    "updatedAt": "2026-08-18T16:00:00.000Z",
+    "bankDetails": {
+      "bankName": "State Bank of India",
+      "accountNumber": "XXXXXX4892",
+      "ifscCode": "SBIN0001234"
+    },
+    "remarks": "Renewal re-verification successful. Disbursal scheduled through PFMS.",
+    "nextAction": "Disbursement details will be shared by the provider.",
+    "history": [
+      {
+        "status": "Submitted",
+        "at": "2026-07-20T10:15:00.000Z",
+        "by": "Student",
+        "remark": "Renewal application submitted"
+      },
+      {
+        "status": "Document Verification",
+        "at": "2026-07-28T11:00:00.000Z",
+        "by": "College Officer",
+        "remark": "Attendance 88% verified"
+      },
+      {
+        "status": "Under Verification",
+        "at": "2026-08-05T14:30:00.000Z",
+        "by": "State Nodal Officer",
+        "remark": "Promoted to year 3 with 8.4 CGPA"
+      },
+      {
+        "status": "Provider Review",
+        "at": "2026-08-12T10:00:00.000Z",
+        "by": "Ministry Officer",
+        "remark": "Sanction approved"
+      },
+      {
+        "status": "Approved",
+        "at": "2026-08-18T16:00:00.000Z",
+        "by": "Finance Disbursal Unit",
+        "remark": "Approved for PFMS DBT"
+      }
+    ]
+  }
+]

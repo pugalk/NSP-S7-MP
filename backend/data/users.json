@@ -1,0 +1,35 @@
+[
+  {
+    "id": "usr_demo_01",
+    "fullName": "Aravind Swaminathan",
+    "email": "student@nsp.gov.in",
+    "password": "student123",
+    "role": "student",
+    "profile": {
+      "fullName": "Aravind Swaminathan",
+      "email": "student@nsp.gov.in",
+      "phone": "+91 98765 43210",
+      "dob": "2004-05-15",
+      "gender": "Male",
+      "state": "Tamil Nadu",
+      "district": "Chennai",
+      "address": "12, Anna Salai, Guindy, Chennai - 600025",
+      "community": "BC",
+      "institution": "Anna University, Chennai",
+      "course": "B.Tech",
+      "department": "Computer Science and Engineering",
+      "currentYear": "3",
+      "registrationNumber": "AU2022CS084",
+      "previousPercentage": "82",
+      "cgpa": "8.4",
+      "attendance": "88",
+      "familyIncome": "220000",
+      "disability": false,
+      "disabilityPercentage": "",
+      "residence": "Day Scholar",
+      "sportsAchievement": "None",
+      "previousScholarship": "Central Sector Post-Matric Scholarship",
+      "previousScholarshipId": "NSP-2025-419201"
+    }
+  }
+]

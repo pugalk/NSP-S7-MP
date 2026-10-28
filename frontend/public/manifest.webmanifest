@@ -1,0 +1,62 @@
+{
+  "name": "National Scholarship Renewal & Eligibility Re-Verification Portal",
+  "short_name": "EligiFind",
+  "description": "Deterministic rule engine across 82 scholarship schemes with offline drafting and renewal re-verification.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f2b5c",
+  "orientation": "any",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "government",
+    "finance"
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "48x48 72x72 96x96 128x128 192x192 256x256 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Check Eligibility",
+      "short_name": "Eligibility",
+      "description": "Live multi-tier scholarship rule engine",
+      "url": "/eligibility",
+      "icons": [{ "src": "/favicon.svg", "sizes": "48x48" }]
+    },
+    {
+      "name": "Renewal Re-Verification",
+      "short_name": "Renewals",
+      "description": "Fast-track scholarship renewal desk",
+      "url": "/student/renewal",
+      "icons": [{ "src": "/favicon.svg", "sizes": "48x48" }]
+    },
+    {
+      "name": "Student Dashboard",
+      "short_name": "Dashboard",
+      "description": "5-stage pipeline tracking & document vault",
+      "url": "/student/dashboard",
+      "icons": [{ "src": "/favicon.svg", "sizes": "48x48" }]
+    },
+    {
+      "name": "Explore All 82 Schemes",
+      "short_name": "Schemes",
+      "description": "Directory of national and state scholarship schemes",
+      "url": "/scholarships",
+      "icons": [{ "src": "/favicon.svg", "sizes": "48x48" }]
+    }
+  ]
+}

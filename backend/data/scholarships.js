@@ -1,0 +1,3930 @@
+// 82 Demonstration Scholarship Schemes from National Scholarship Portal
+export const SCHOLARSHIPS = [
+  {
+    "id": "1",
+    "code": "NSP-MERIT-001",
+    "name": "National Merit Excellence Scholarship",
+    "provider": "Ministry of Education, Government of India",
+    "category": "Merit-Based",
+    "description": "Awarded to high-performing undergraduate students maintaining consistent academic excellence and attendance.",
+    "benefits": [
+      "Annual tuition support",
+      "Books and stationery grant",
+      "Merit certificate"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-10-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minPercentage": 75,
+    "minCgpa": 7.5,
+    "minAttendance": 75,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "B.Sc",
+      "B.Com"
+    ],
+    "eligibleYears": [
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintain CGPA 7.5 and attendance 75% in the current academic year.",
+    "active": true
+  },
+  {
+    "id": "2",
+    "code": "NSP-CENTRAL-002",
+    "name": "Central Sector Post-Matric Scholarship",
+    "provider": "Department of Higher Education",
+    "category": "Central Government",
+    "description": "Central assistance for post-matric students from low income families pursuing recognised degree programmes.",
+    "benefits": [
+      "Monthly maintenance allowance",
+      "Full fee reimbursement"
+    ],
+    "amount": 36000,
+    "openingDate": "2026-05-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 70,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Promotion to the next academic year with 60% marks and valid income proof.",
+    "active": true
+  },
+  {
+    "id": "3",
+    "code": "TN-STATE-003",
+    "name": "Tamil Nadu State Higher Education Grant",
+    "provider": "Directorate of Collegiate Education, Tamil Nadu",
+    "category": "State Government",
+    "description": "State grant for domicile students of Tamil Nadu studying in recognised institutions within the state.",
+    "benefits": [
+      "Tuition fee waiver",
+      "Hostel fee concession"
+    ],
+    "amount": 30000,
+    "openingDate": "2026-06-10",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "OC",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 75,
+    "maxFamilyIncome": 300000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Bonafide Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Continued domicile status and pass in all subjects.",
+    "active": true
+  },
+  {
+    "id": "4",
+    "code": "NSP-NEED-004",
+    "name": "Vidya Support Need-Based Assistance",
+    "provider": "National Scholarship Trust",
+    "category": "Need-Based",
+    "description": "Financial assistance for students from economically weaker households at risk of discontinuing studies.",
+    "benefits": [
+      "Direct benefit transfer",
+      "Laptop grant for final year students"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-04-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 150000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Income Certificate",
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Family income remains below the ceiling and student is promoted.",
+    "active": true
+  },
+  {
+    "id": "5",
+    "code": "NSP-MINOR-005",
+    "name": "Minority Communities Education Scholarship",
+    "provider": "Ministry of Minority Affairs",
+    "category": "Minority",
+    "description": "Support for students belonging to notified minority communities pursuing technical and general degrees.",
+    "benefits": [
+      "Tuition assistance",
+      "Maintenance allowance"
+    ],
+    "amount": 40000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "minAttendance": 70,
+    "maxFamilyIncome": 400000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Aadhaar / Identity Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 55% marks in the previous academic year.",
+    "active": true
+  },
+  {
+    "id": "6",
+    "code": "NSP-WOMEN-006",
+    "name": "Pragati Scholarship for Girl Students",
+    "provider": "All India Council for Technical Education",
+    "category": "Women / Girls",
+    "description": "Encourages girl students in technical education, with priority for single-girl-child families.",
+    "benefits": [
+      "Tuition reimbursement",
+      "Contingency allowance of ₹30,000"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-06-15",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Female",
+    "minPercentage": 60,
+    "minAttendance": 75,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "No academic backlog and attendance above 75%.",
+    "active": true
+  },
+  {
+    "id": "7",
+    "code": "NSP-DIV-007",
+    "name": "Saksham Scholarship for Students with Disability",
+    "provider": "All India Council for Technical Education",
+    "category": "Disability",
+    "description": "Assistance for differently-abled students with 40% or more certified disability pursuing degree programmes.",
+    "benefits": [
+      "Full tuition support",
+      "Assistive device grant"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-11-10",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": true,
+    "requiredDocuments": [
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Aadhaar / Identity Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Valid disability certificate and promotion to next year.",
+    "active": true
+  },
+  {
+    "id": "8",
+    "code": "NSP-SPORT-008",
+    "name": "National Sports Talent Scholarship",
+    "provider": "Sports Authority of India",
+    "category": "Sports",
+    "description": "For students representing state or national level competitions while continuing higher education.",
+    "benefits": [
+      "Training grant",
+      "Equipment allowance",
+      "Travel support"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-05-01",
+    "closingDate": "2026-09-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 60,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Sports Certificate",
+      "Bonafide Certificate",
+      "Marksheet",
+      "Aadhaar / Identity Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Participation in at least one recognised event during the year.",
+    "active": true
+  },
+  {
+    "id": "9",
+    "code": "NSP-COMM-009",
+    "name": "SC/ST Community Advancement Scholarship",
+    "provider": "Department of Social Welfare",
+    "category": "Community-Based",
+    "description": "Community-linked assistance for SC and ST students including hostellers studying away from home.",
+    "benefits": [
+      "Hostel and mess fee support",
+      "Annual book grant"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-06-20",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 70,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresHosteller": true,
+    "requiredDocuments": [
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Continued hostel residence and satisfactory academic progress.",
+    "active": true
+  },
+  {
+    "id": "10",
+    "code": "INST-011",
+    "name": "Institutional Toppers Fee Concession",
+    "provider": "Institution Scholarship Committee",
+    "category": "Institutional",
+    "description": "Awarded by institutions to department toppers with outstanding CGPA and clean attendance record.",
+    "benefits": [
+      "50% tuition concession",
+      "Recognition at annual day"
+    ],
+    "amount": 20000,
+    "openingDate": "2026-07-05",
+    "closingDate": "2026-08-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minCgpa": 8.5,
+    "minAttendance": 85,
+    "eligibleCourses": [],
+    "eligibleYears": [
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Retain department topper position.",
+    "active": true
+  },
+  {
+    "id": "11",
+    "code": "CORP-012",
+    "name": "TechBridge Corporate Future Engineers Grant",
+    "provider": "TechBridge Foundation (CSR)",
+    "category": "Private / Corporate",
+    "description": "Corporate social responsibility scholarship for engineering students with internship mentoring.",
+    "benefits": [
+      "Cash award",
+      "Paid internship opportunity",
+      "Industry mentor"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minPercentage": 70,
+    "minCgpa": 7,
+    "minAttendance": 80,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Marksheet",
+      "Income Certificate",
+      "Aadhaar / Identity Document",
+      "Passport-size Photograph"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "12",
+    "code": "RES-013",
+    "name": "Doctoral Research Fellowship",
+    "provider": "National Research Council",
+    "category": "Research",
+    "description": "Fellowship for postgraduate and doctoral scholars undertaking recognised research programmes.",
+    "benefits": [
+      "Monthly fellowship",
+      "Contingency research grant",
+      "Conference travel support"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-05-20",
+    "closingDate": "2026-11-25",
+    "eligibleStates": [],
+    "eligibleCommunities": [],
+    "gender": "Any",
+    "minCgpa": 8,
+    "eligibleCourses": [
+      "M.Tech",
+      "M.Sc",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiredDocuments": [
+      "Marksheet",
+      "Bonafide Certificate",
+      "Aadhaar / Identity Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual research progress report accepted by the supervisor.",
+    "active": true
+  },
+  {
+    "id": "13",
+    "code": "NSP-PMS-SC-001",
+    "name": "Post Matric Scholarship for SC Students (Department of Social Justice)",
+    "provider": "Ministry of Social Justice and Empowerment",
+    "category": "Central Government",
+    "description": "Post Matric Scholarship scheme for students belonging to Scheduled Castes for studies in India. The objective is to provide financial assistance to SC students studying at post-matriculation or post-secondary stage.",
+    "benefits": [
+      "Full Tuition Fee reimbursement up to INR 20,000 per annum",
+      "Maintenance allowance of INR 5,000 per annum"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "SC"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must pass previous year examinations with no backlogs and maintain 75% attendance.",
+    "active": true
+  },
+  {
+    "id": "14",
+    "code": "NSP-PRAGATI-002",
+    "name": "Pragati Scholarship Scheme for Girl Students (Technical Degree)",
+    "provider": "All India Council for Technical Education (AICTE)",
+    "category": "Central Government",
+    "description": "Pragati Scholarship Scheme is an MHRD Scheme being implemented by AICTE aimed at providing assistance for Advancement of Girls pursuing Technical Education.",
+    "benefits": [
+      "Lump sum scholarship amount of INR 50,000 per annum for technical education expenses."
+    ],
+    "amount": 50000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 60,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Promotion to the next academic year and submission of marksheets.",
+    "active": true
+  },
+  {
+    "id": "15",
+    "code": "NSP-CSIR-SRF-003",
+    "name": "CSIR Junior/Senior Research Fellowship (JRF/SRF)",
+    "provider": "Council of Scientific and Industrial Research (CSIR)",
+    "category": "Central Government",
+    "description": "Fellowship for pursuing research in Science and Technology fields for PhD students who have qualified NET/GATE.",
+    "benefits": [
+      "Monthly stipend of INR 8,000 for 10 months per year",
+      "Contingency grant of INR 20,000 per annum",
+      "Direct transfer to the student's Aadhaar-seeded bank account"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual progress report approved by the research supervisor and departmental committee.",
+    "active": true
+  },
+  {
+    "id": "16",
+    "code": "NSP-MIN-MERIT-004",
+    "name": "Merit Cum Means Scholarship for Minorities CS",
+    "provider": "Ministry of Minority Affairs",
+    "category": "Central Government",
+    "description": "Merit-cum-Means Scholarship for Professional and Technical Courses for students belonging to Minority communities.",
+    "benefits": [
+      "Course fee reimbursement up to INR 30,000",
+      "Maintenance allowance for hostellers at INR 500 per month"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-07-20",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "MBA",
+      "M.Tech",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintaining at least 50% marks in the previous academic year.",
+    "active": true
+  },
+  {
+    "id": "17",
+    "code": "NSP-PWD-DEGREE-005",
+    "name": "Scholarship for Students with Disabilities (Divyangjan)",
+    "provider": "Department of Empowerment of Persons with Disabilities",
+    "category": "Central Government",
+    "description": "Scholarship for students with disabilities pursuing degree and post-graduate level professional or technical courses.",
+    "benefits": [
+      "Scholarship amount covers tuition fees and specialized equipment allowance.",
+      "Special book grant for students with visual impairment."
+    ],
+    "amount": 40000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minAttendance": 60,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.Sc",
+      "B.Com",
+      "M.Sc",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing the annual examination and minimum attendance.",
+    "active": true
+  },
+  {
+    "id": "18",
+    "code": "TN-MAYA-2026-01",
+    "name": "Pudhumai Penn Scheme (Tamil Nadu)",
+    "provider": "Directorate of Collegiate Education, Tamil Nadu",
+    "category": "State Government",
+    "description": "Moovalur Ramamirtham Ammiyar Higher Education Assurance Scheme for girls from government schools in Tamil Nadu.",
+    "benefits": [
+      "Annual Tuition Fee Subsidy",
+      "Book Allowance of INR 3000"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Female",
+    "minPercentage": 60,
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.Sc",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must maintain 75% attendance and clear all subjects in the previous year.",
+    "active": true
+  },
+  {
+    "id": "19",
+    "code": "KL-DCE-SSP-2026",
+    "name": "Kerala State Merit Scholarship (SSP)",
+    "provider": "Directorate of Collegiate Education, Kerala",
+    "category": "State Government",
+    "description": "State Merit Scholarship for meritorious students pursuing under-graduation in Kerala.",
+    "benefits": [
+      "Monthly stipend of INR 2000 for 9 months"
+    ],
+    "amount": 18000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [
+      "Kerala"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 100000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing marks in all university exams.",
+    "active": true
+  },
+  {
+    "id": "20",
+    "code": "KA-SSP-TECH-2026",
+    "name": "Karnataka Post-Matric Scholarship for SC/ST",
+    "provider": "Social Welfare Department, Karnataka",
+    "category": "State Government",
+    "description": "State Scholarship Portal (SSP) Post-Matric scholarship for SC/ST students in Karnataka.",
+    "benefits": [
+      "Full tuition fee reimbursement for engineering students up to 50k"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-31",
+    "eligibleStates": [
+      "Karnataka"
+    ],
+    "eligibleCommunities": [
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minCgpa": 6,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing grade and income certificate validity.",
+    "active": true
+  },
+  {
+    "id": "21",
+    "code": "AP-JVD-2026-88",
+    "name": "Jagananna Vidya Deevena (AP)",
+    "provider": "Higher Education Department, Andhra Pradesh",
+    "category": "State Government",
+    "description": "Full fee reimbursement scheme for students from BPL families in Andhra Pradesh.",
+    "benefits": [
+      "Tuition fees, hostel fees, and mess charges for professional courses."
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-15",
+    "closingDate": "2026-11-20",
+    "eligibleStates": [
+      "Andhra Pradesh"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "MBA",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "75% biometric attendance mandatory.",
+    "active": true
+  },
+  {
+    "id": "22",
+    "code": "TS-EPASS-PG-2026",
+    "name": "Telangana BC Welfare Post-Matric Scholarship",
+    "provider": "BC Welfare Department, Telangana",
+    "category": "State Government",
+    "description": "Financial assistance to girls from backward classes for higher education in Telangana.",
+    "benefits": [
+      "Cash incentive for girl students pursuing postgraduate degrees."
+    ],
+    "amount": 20000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-12-10",
+    "eligibleStates": [
+      "Telangana"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 55,
+    "maxFamilyIncome": 150000,
+    "eligibleCourses": [
+      "M.Sc",
+      "MBA",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Income Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Clearance of previous semester exams.",
+    "active": true
+  },
+  {
+    "id": "23",
+    "code": "MH-RJS-EBC-2026",
+    "name": "Maharashtra EBC Scholarship (RJSMC)",
+    "provider": "Directorate of Technical Education, Maharashtra",
+    "category": "State Government",
+    "description": "Rajarshi Chhatrapati Shahu Maharaj Fee Reimbursement Scheme for EBC students.",
+    "benefits": [
+      "50% Tuition fee waiver for EWS students in professional courses."
+    ],
+    "amount": 45000,
+    "openingDate": "2026-07-20",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech",
+      "MBA",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Promotion to next academic year without backlogs.",
+    "active": true
+  },
+  {
+    "id": "24",
+    "code": "DL-PWD-HIGHER-26",
+    "name": "Delhi State PWD Scholarship Scheme",
+    "provider": "Department of Social Welfare, GNCTD Delhi",
+    "category": "State Government",
+    "description": "Scholarship for students with disabilities pursuing higher education in Delhi government-aided colleges.",
+    "benefits": [
+      "Direct Benefit Transfer for students with disabilities in Delhi."
+    ],
+    "amount": 30000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [
+      "Delhi"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minAttendance": 60,
+    "maxFamilyIncome": 300000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Com",
+      "B.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual progress report from the Head of Institution.",
+    "active": true
+  },
+  {
+    "id": "25",
+    "code": "GJ-MY-SY-2026",
+    "name": "Gujarat MYSY Research Fellowship",
+    "provider": "Gujarat Knowledge Society, Education Department",
+    "category": "State Government",
+    "description": "Mukhymantri Yuva Swavalamban Yojana for higher education research scholars in Gujarat.",
+    "benefits": [
+      "Full tuition fee coverage and study material allowance for Ph.D scholars."
+    ],
+    "amount": 100000,
+    "openingDate": "2026-09-15",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [
+      "Gujarat"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 80,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory research progress report from Supervisor.",
+    "active": true
+  },
+  {
+    "id": "26",
+    "code": "WB-KANYA-SP-26",
+    "name": "West Bengal Kanyashree Sports Excellence Grant",
+    "provider": "Department of Women and Child Development, West Bengal",
+    "category": "State Government",
+    "description": "Kanyashree Prakalpa (K3) for girls pursuing postgraduate studies with sports achievements.",
+    "benefits": [
+      "One-time grant for female students excelling in sports at state/national level."
+    ],
+    "amount": 35000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [
+      "West Bengal"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 45,
+    "eligibleCourses": [
+      "M.Sc",
+      "M.Tech",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": true,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Sports Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "27",
+    "code": "RJ-CM-SS-2026",
+    "name": "Rajasthan CM Higher Education Scholarship",
+    "provider": "Department of College Education, Rajasthan",
+    "category": "State Government",
+    "description": "Rajasthan Chief Minister's Higher Education Scholarship Scheme.",
+    "benefits": [
+      "Lumpsum scholarship for meritorious students from low-income groups."
+    ],
+    "amount": 75000,
+    "openingDate": "2026-08-10",
+    "closingDate": "2026-10-25",
+    "eligibleStates": [
+      "Rajasthan"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "EWS",
+      "BC"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "B.Sc",
+      "B.Com"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 60% in previous year university exams.",
+    "active": true
+  },
+  {
+    "id": "28",
+    "code": "UP-POST-MIN-26",
+    "name": "UP State Minority Post-Matric Scholarship",
+    "provider": "Minority Welfare Department, Uttar Pradesh",
+    "category": "State Government",
+    "description": "Post-Matric Scholarship for Minorities (Muslim, Sikh, Christian, Buddhist, Jain, Parsi) in Uttar Pradesh.",
+    "benefits": [
+      "Maintenance allowance and fee subsidy for minority students."
+    ],
+    "amount": 22000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [
+      "Uttar Pradesh"
+    ],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minAttendance": 75,
+    "maxFamilyIncome": 200000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Com",
+      "BBA",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Clean academic record and 75% attendance.",
+    "active": true
+  },
+  {
+    "id": "29",
+    "code": "NSP-MERIT-2026-001",
+    "name": "National Prime Excellence Scholarship for Undergraduates",
+    "provider": "Ministry of Education, Government of India",
+    "category": "Merit-Based",
+    "description": "A prestigious merit scholarship for top-performing undergraduate students in science and commerce streams across India.",
+    "benefits": [
+      "Full tuition fee waiver up to 50k",
+      "Monthly stipend of 2000 for 10 months",
+      "Annual book allowance of 5000"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 90,
+    "minAttendance": 80,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Income Certificate",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must maintain a minimum CGPA of 8.5 in all subsequent semesters.",
+    "active": true
+  },
+  {
+    "id": "30",
+    "code": "NSP-MERIT-2026-002",
+    "name": "Sir C.V. Raman Advanced Research Fellowship",
+    "provider": "Council of Scientific and Industrial Research (CSIR)",
+    "category": "Merit-Based",
+    "description": "Designed to support high-achieving research scholars and postgraduate students in technical fields.",
+    "benefits": [
+      "Lump sum research grant for laboratory expenses",
+      "Monthly fellowship for travel to conferences"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 8.75,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "M.Tech",
+      "M.Sc",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Submission of satisfactory annual progress report certified by the research supervisor.",
+    "active": true
+  },
+  {
+    "id": "31",
+    "code": "NSP-MERIT-2026-003",
+    "name": "Techno-India Merit Leadership Award",
+    "provider": "All India Council for Technical Education (AICTE)",
+    "category": "Merit-Based",
+    "description": "Targeted at engineering and technology students who demonstrate exceptional academic and extracurricular performance.",
+    "benefits": [
+      "One-time academic incentive for professional degree students",
+      "Mentorship from industry experts during the final year"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 9,
+    "minAttendance": 75,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E"
+    ],
+    "eligibleYears": [
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook",
+      "Other Document"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "32",
+    "code": "NSP-MERIT-2026-004",
+    "name": "Pragati Merit Scholarship for Women in Management",
+    "provider": "Department of Higher Education, Ministry of HRD",
+    "category": "Merit-Based",
+    "description": "A merit-linked incentive for students pursuing professional management and business administration courses.",
+    "benefits": [
+      "Full reimbursement of semester fees for top 5% of the class",
+      "Subscription to premium digital libraries and research journals"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-11-20",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 85,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "MBA",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintaining at least 80% attendance and clear pass in all subjects.",
+    "active": true
+  },
+  {
+    "id": "33",
+    "code": "NSP-MERIT-2026-005",
+    "name": "Bharat Kala Merit Scholarship for Humanities",
+    "provider": "Indian Council of Historical Research (ICHR) Trust",
+    "category": "Merit-Based",
+    "description": "Awarded to students of Bachelor of Arts who have topped their respective district in the higher secondary examinations.",
+    "benefits": [
+      "Special merit grant for Humanities and Social Science students",
+      "Invitation to the Annual Scholars Conclave in New Delhi"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-05-10",
+    "closingDate": "2026-08-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 92,
+    "eligibleCourses": [
+      "B.A"
+    ],
+    "eligibleYears": [
+      1
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Community / Category Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "34",
+    "code": "NSP-NB-2026-001",
+    "name": "Prime Minister's Ishan Uday Need-Based Scholarship",
+    "provider": "Ministry of Education, Government of India",
+    "category": "Need-Based",
+    "description": "Financial assistance for meritorious students from economically weaker sections to pursue professional degree courses.",
+    "benefits": [
+      "Full tuition fee coverage up to limit",
+      "Monthly maintenance allowance of ₹2000",
+      "Book grant of ₹5000 per annum"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "EWS",
+      "OC",
+      "BC"
+    ],
+    "gender": "Any",
+    "minPercentage": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Bonafide Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintenance of 7.0 CGPA and 75% attendance in previous academic year.",
+    "active": true
+  },
+  {
+    "id": "35",
+    "code": "MAHA-DTE-NB-022",
+    "name": "Rajarshi Chhatrapati Shahu Maharaj Fee Reimbursement Scheme",
+    "provider": "Directorate of Higher Education, Government of Maharashtra",
+    "category": "Need-Based",
+    "description": "State-sponsored scheme for students belonging to low-income groups enrolled in science and commerce streams in Maharashtra.",
+    "benefits": [
+      "Fixed annual scholarship amount paid in two installments",
+      "Special allowance for female candidates"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 75,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing all subjects in the first attempt.",
+    "active": true
+  },
+  {
+    "id": "36",
+    "code": "NSP-RES-PHD-990",
+    "name": "National Fellowship for Research Scholars (Need-Based)",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Need-Based",
+    "description": "Support for doctoral researchers from disadvantaged backgrounds to complete their thesis work without financial strain.",
+    "benefits": [
+      "Contingency grant for research materials",
+      "Monthly stipend for living expenses",
+      "Travel allowance for attending national conferences"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory progress report from Research Supervisor every 6 months.",
+    "active": true
+  },
+  {
+    "id": "37",
+    "code": "CORP-CSR-NEED-412",
+    "name": "Tata Trust Postgraduate Support Scholarship for Women",
+    "provider": "Tata Trusts Foundation",
+    "category": "Need-Based",
+    "description": "Corporate social responsibility initiative to support high-achieving MBA and M.Tech students with limited financial means.",
+    "benefits": [
+      "Partial tuition fee waiver",
+      "Laptop allowance for first-year students",
+      "Mentorship program with industry experts"
+    ],
+    "amount": 85000,
+    "openingDate": "2026-08-20",
+    "closingDate": "2026-11-20",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minCgpa": 8,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "M.Tech",
+      "MBA",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintaining a minimum of 8.0 CGPA without any backlogs.",
+    "active": true
+  },
+  {
+    "id": "38",
+    "code": "NSP-PWD-NB-773",
+    "name": "Department of Empowerment of Persons with Disabilities Scholarship",
+    "provider": "Ministry of Social Justice and Empowerment",
+    "category": "Need-Based",
+    "description": "A specialized need-cum-disability scholarship aimed at empowering students with physical disabilities to pursue higher education.",
+    "benefits": [
+      "Lump sum grant for purchase of aids and appliances",
+      "Exemption from examination fees"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 65,
+    "maxFamilyIncome": 300000,
+    "eligibleCourses": [
+      "B.Com",
+      "B.A",
+      "B.Sc",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Proof of promotion to the next academic year.",
+    "active": true
+  },
+  {
+    "id": "39",
+    "code": "NSP-COMM-ST-2026-01",
+    "name": "National Overseas Fellowship for ST Students (Domestic Component)",
+    "provider": "Ministry of Tribal Affairs, Government of India",
+    "category": "Community-Based",
+    "description": "Financial assistance provided to ST students pursuing technical and professional courses to encourage higher education within the community.",
+    "benefits": [
+      "Annual maintenance allowance of ₹25,000 paid directly to bank account",
+      "Exemption from tuition fees at government colleges",
+      "Provision for book and stationery allowance of ₹2,000 per year"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "ST"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must maintain 75% attendance and pass all subjects in the previous academic year.",
+    "active": true
+  },
+  {
+    "id": "40",
+    "code": "TN-ADW-2026-052",
+    "name": "Tamil Nadu Adi Dravidar Welfare Scholarship for Arts & Science",
+    "provider": "Adi Dravidar and Tribal Welfare Department, Government of Tamil Nadu",
+    "category": "Community-Based",
+    "description": "A state-specific initiative for SC/ST students in Tamil Nadu pursuing undergraduate studies in Arts and Science.",
+    "benefits": [
+      "Tuition fee reimbursement up to ₹18,000 per annum",
+      "Special coaching classes for competitive exams during final year"
+    ],
+    "amount": 18000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 80,
+    "maxFamilyIncome": 200000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Bonafide Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual submission of marksheet with no active backlogs.",
+    "active": true
+  },
+  {
+    "id": "41",
+    "code": "NSP-OBC-PHD-2026-09",
+    "name": "National Fellowship for Other Backward Classes (NFOBC) Research Grant",
+    "provider": "National Backward Classes Finance and Development Corporation (NBCFDC)",
+    "category": "Community-Based",
+    "description": "Dedicated fellowship for OBC researchers to complete their doctoral studies in any recognized university.",
+    "benefits": [
+      "Comprehensive scholarship covering living expenses and research materials",
+      "Access to digital library resources and seminars"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "BC",
+      "MBC"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory progress report from Research Supervisor and Dean.",
+    "active": true
+  },
+  {
+    "id": "42",
+    "code": "MAHA-EWS-PROF-2026-1124",
+    "name": "Maharashtra State EWS Professional Education Support Scheme",
+    "provider": "Directorate of Higher Education, Government of Maharashtra",
+    "category": "Community-Based",
+    "description": "Assistance for students from Economically Weaker Sections in Maharashtra pursuing high-demand professional courses like MBA.",
+    "benefits": [
+      "Lump sum amount for tuition and development fees",
+      "Mentorship from industry leaders within the community network"
+    ],
+    "amount": 65000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 65,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "MBA",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bank Passbook",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Continuous enrollment and maintaining at least 6.5 CGPA or equivalent.",
+    "active": true
+  },
+  {
+    "id": "43",
+    "code": "NSP-MIN-POSTGRAD-2026-077",
+    "name": "Begum Hazrat Mahal National Scholarship for Minority Women (Post-Grad)",
+    "provider": "Maulana Azad Education Foundation, Ministry of Minority Affairs",
+    "category": "Community-Based",
+    "description": "Merit-cum-Means scholarship for students belonging to Minority communities pursuing Master of Science.",
+    "benefits": [
+      "Direct benefit transfer of ₹35,000 for postgraduate research projects",
+      "Travel allowance for attending national conferences within India"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Female",
+    "minPercentage": 60,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing of the 1st year postgraduate exams with a minimum of 55%.",
+    "active": true
+  },
+  {
+    "id": "44",
+    "code": "NSP-MOMA-PMS-2026",
+    "name": "Post Matric Scholarship Schemes Minorities CS",
+    "provider": "Ministry of Minority Affairs (MoMA)",
+    "category": "Minority",
+    "description": "A flagship scheme by the Ministry of Minority Affairs to support post-matric studies for students from Muslim, Christian, Sikh, Buddhist, Parsi, and Jain communities.",
+    "benefits": [
+      "Maintenance allowance of ₹1,000 per month for hostellers",
+      "Full tuition fee reimbursement as per government norms",
+      "Book grant of ₹3,000 per annum"
+    ],
+    "amount": 30000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 200000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A",
+      "BBA",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 50% marks in the previous final examination and 75% attendance.",
+    "active": true
+  },
+  {
+    "id": "45",
+    "code": "NSP-MOMA-MCM-2026",
+    "name": "Merit Cum Means Scholarship For Professional and Technical Courses CS",
+    "provider": "Ministry of Minority Affairs (MoMA)",
+    "category": "Minority",
+    "description": "Merit-cum-Means scholarship for professional and technical courses for students belonging to minority communities.",
+    "benefits": [
+      "Tuition fee reimbursement up to ₹70,000 per annum",
+      "Maintenance allowance for 10 months in an academic year"
+    ],
+    "amount": 85000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "M.Tech",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Successful completion of previous year exams without backlogs.",
+    "active": true
+  },
+  {
+    "id": "46",
+    "code": "UGC-MANF-2026-RES",
+    "name": "Maulana Azad National Fellowship for Minority Students",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Minority",
+    "description": "Fellowship for minority students pursuing higher education such as M.Phil and Ph.D. in Sciences, Humanities, and Social Sciences.",
+    "benefits": [
+      "Monthly fellowship of ₹31,000 for the first two years (JRF)",
+      "Contingency grant for research materials",
+      "HRA as per university norms"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Community / Category Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory progress report certified by the Research Supervisor.",
+    "active": true
+  },
+  {
+    "id": "47",
+    "code": "KA-DOM-PMS-2026",
+    "name": "Karnataka State Minority Post-Matric Scholarship",
+    "provider": "Directorate of Minorities, Government of Karnataka",
+    "category": "Minority",
+    "description": "State-sponsored scholarship for minority students in Karnataka to pursue higher professional education.",
+    "benefits": [
+      "Full tuition fee coverage for selected professional courses",
+      "Special guidance and counseling sessions for career development"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [
+      "Karnataka"
+    ],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Any",
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.Sc",
+      "MBA",
+      "B.E"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must maintain 75% attendance and clear all subjects in the first attempt.",
+    "active": true
+  },
+  {
+    "id": "48",
+    "code": "MAHA-DTE-MIN-2026",
+    "name": "Begum Hazrat Mahal National Scholarship for Minority Girls",
+    "provider": "Maulana Azad Education Foundation (MAEF)",
+    "category": "Minority",
+    "description": "Scholarship for students of minority communities pursuing technical and professional education in Maharashtra.",
+    "benefits": [
+      "Financial assistance for academic books and stationery",
+      "Preference for hostel accommodation in government hostels"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "Minority"
+    ],
+    "gender": "Female",
+    "minCgpa": 6,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech",
+      "B.Com",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Pass in the previous qualifying examination with at least 50% marks.",
+    "active": true
+  },
+  {
+    "id": "49",
+    "code": "MAHA-SAVITRI-2026-G",
+    "name": "Savitribai Phule Higher Education Scholarship for Girls",
+    "provider": "Directorate of Higher Education, Government of Maharashtra",
+    "category": "State Government",
+    "description": "Savitribai Phule Scholarship for meritorious girl students in Maharashtra pursuing higher education in arts, science, and commerce.",
+    "benefits": [
+      "Annual grant of ₹30,000 for academic expenses",
+      "Specialized mentorship sessions with industry leaders"
+    ],
+    "amount": 30000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Female",
+    "minPercentage": 65,
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 75% attendance and passing all subjects in previous year.",
+    "active": true
+  },
+  {
+    "id": "50",
+    "code": "UGC-KOTHARI-2026-R",
+    "name": "Dr. D.S. Kothari Women Research Fellowship in STEM",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Research",
+    "description": "Dr. D.S. Kothari Research Fellowship specifically reserved for female scholars in STEM fields to promote women in research.",
+    "benefits": [
+      "Research grant of ₹1,20,000 per annum",
+      "Contingency allowance for laboratory supplies and travel to conferences"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minCgpa": 7.5,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory annual progress report signed by the Research Supervisor.",
+    "active": true
+  },
+  {
+    "id": "51",
+    "code": "CORP-TATA-2026-B",
+    "name": "Tata Excellence Scholarship for Women in Management",
+    "provider": "Tata Group Corporate Social Responsibility Trust",
+    "category": "Private / Corporate",
+    "description": "Tata Excellence Scholarship for Women in Management, supporting future female leaders in business administration.",
+    "benefits": [
+      "Lump sum scholarship of ₹75,000",
+      "Priority access to the company's summer internship program"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minCgpa": 8,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "BBA",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Income Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintaining a CGPA of 8.0 or above in the first year of MBA/BBA.",
+    "active": true
+  },
+  {
+    "id": "52",
+    "code": "NSP-DST-KIRAN-2026-T",
+    "name": "KIRAN-GS Post-Graduate Scholarship for Women in Science & Tech",
+    "provider": "Department of Science and Technology (DST)",
+    "category": "Central Government",
+    "description": "KIRAN (Knowledge Involvement in Research Advancement through Nurturing) scholarship for women pursuing post-graduation in technology and science.",
+    "benefits": [
+      "Annual scholarship amount of ₹45,000",
+      "Additional allowance for study materials and technical kits"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 70,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "M.Tech",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Income Certificate",
+      "Bonafide Certificate",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Successful completion of the first year with no standing arrears.",
+    "active": true
+  },
+  {
+    "id": "53",
+    "code": "NSP-PWD-UG-2026",
+    "name": "National Scholarship for Persons with Disabilities (Undergraduate)",
+    "provider": "Department of Empowerment of Persons with Disabilities, Ministry of Social Justice and Empowerment",
+    "category": "Central Government",
+    "description": "A comprehensive scholarship for students with disabilities pursuing undergraduate degrees to ensure financial barriers do not hinder their academic progress.",
+    "benefits": [
+      "Monthly stipend of INR 2500",
+      "Book allowance of INR 5000 per annum"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 50,
+    "minAttendance": 75,
+    "maxFamilyIncome": 250000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Com",
+      "B.Sc",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Disability Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Must maintain at least 50% marks in the annual examination.",
+    "active": true
+  },
+  {
+    "id": "54",
+    "code": "TN-ADW-PWD-2026",
+    "name": "Tamil Nadu State Excellence Award for Differently-Abled Engineers",
+    "provider": "Directorate of Social Welfare and Nutritious Meal Programme, Government of Tamil Nadu",
+    "category": "State Government",
+    "description": "Special state-funded scholarship for differently-abled students in Tamil Nadu pursuing professional engineering courses.",
+    "benefits": [
+      "Tuition fee reimbursement up to INR 50,000",
+      "Special equipment allowance for assistive devices"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minCgpa": 6.5,
+    "maxFamilyIncome": 300000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Bonafide Certificate",
+      "Income Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "No standing arrears and minimum 6.5 CGPA.",
+    "active": true
+  },
+  {
+    "id": "55",
+    "code": "UGC-NFPWD-2026",
+    "name": "National Fellowship for PwD Research Scholars",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Research",
+    "description": "Fellowship for students with disabilities to pursue advanced research and doctoral studies in Indian Universities.",
+    "benefits": [
+      "Research contingency grant of INR 20,000 per year",
+      "Higher monthly stipend for Ph.D. scholars"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory progress report from the Research Supervisor.",
+    "active": true
+  },
+  {
+    "id": "56",
+    "code": "CORP-INCLU-2026",
+    "name": "Reliance Inclusion Scholarship for Women with Disabilities",
+    "provider": "Reliance Foundation Trust",
+    "category": "Private / Corporate",
+    "description": "A corporate social responsibility initiative to promote inclusion in management and postgraduate science education for students with physical disabilities.",
+    "benefits": [
+      "Full tuition fee waiver for management students",
+      "Career mentorship and placement support"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-05-20",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minCgpa": 7,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "MBA",
+      "M.Sc",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintain a CGPA of 7.0 or above.",
+    "active": true
+  },
+  {
+    "id": "57",
+    "code": "MAHA-PWD-HED-2026",
+    "name": "Maharashtra State Divyangjan Higher Education Scholarship",
+    "provider": "Social Justice and Special Assistance Department, Government of Maharashtra",
+    "category": "State Government",
+    "description": "Financial assistance for students with disabilities in Maharashtra to pursue higher education in various disciplines.",
+    "benefits": [
+      "Laptop allowance for online learning",
+      "Transport subsidy for day scholars"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [
+      "Maharashtra"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minAttendance": 80,
+    "maxFamilyIncome": 200000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Sc",
+      "B.Com",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Bank Passbook",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Successful completion of the previous academic year with at least 80% attendance.",
+    "active": true
+  },
+  {
+    "id": "58",
+    "code": "NSP-SPORTS-SAI-01",
+    "name": "Khelo India Academic Excellence Scholarship",
+    "provider": "Sports Authority of India (SAI)",
+    "category": "Central Government",
+    "description": "A flagship scheme by the Ministry of Youth Affairs and Sports to support medal-winning athletes pursuing professional undergraduate degrees.",
+    "benefits": [
+      "Annual sports kit allowance",
+      "Reimbursement of national participation fees",
+      "Monthly coaching stipend of ₹2000"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 75,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "B.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Sports Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintenance of state-level ranking and minimum academic CGPA of 6.5.",
+    "active": true
+  },
+  {
+    "id": "59",
+    "code": "TNSDA-ELITE-2026-05",
+    "name": "Tamil Nadu State Sports Merit Scholarship",
+    "provider": "Sports Development Authority of Tamil Nadu (SDAT)",
+    "category": "State Government",
+    "description": "Special incentive for Tamil Nadu domiciled students who have represented the state in National Games while pursuing commerce and management studies.",
+    "benefits": [
+      "Full tuition fee waiver for one academic year",
+      "Travel allowance for inter-university tournaments"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-06-15",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Com",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Community / Category Certificate",
+      "Sports Certificate",
+      "Income Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Continued participation in university sports team and passing all subjects.",
+    "active": true
+  },
+  {
+    "id": "60",
+    "code": "UGC-SRF-SPORTS-88",
+    "name": "UGC Junior Research Fellowship for Athlete-Scholars",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Research",
+    "description": "A unique fellowship for doctoral candidates researching Sports Physiology, Biomechanics, or Sports Management who are also active athletes.",
+    "benefits": [
+      "Specialized research grant for sports science equipment",
+      "International conference travel support once in 3 years"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-05-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 1000000,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Sports Certificate",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory half-yearly progress report from research supervisor.",
+    "active": true
+  },
+  {
+    "id": "61",
+    "code": "RIL-SHAKTI-SPORT-99",
+    "name": "Reliance Foundation Shakti Sports Scholarship for Women",
+    "provider": "Reliance Foundation",
+    "category": "Women / Girls",
+    "description": "A CSR initiative to promote female participation in STEM and Arts while maintaining excellence in individual sports like Badminton and Athletics.",
+    "benefits": [
+      "Personalized nutrition consultation twice a year nutrition coaching",
+      "Hostel fee subsidy for sports-quota residents"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 65,
+    "minAttendance": 80,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Sc",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Sports Certificate",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Participation in at least two national level trials annually.",
+    "active": true
+  },
+  {
+    "id": "62",
+    "code": "TATA-LEAD-MBA-02",
+    "name": "Tata Trust Leadership through Sports Scholarship",
+    "provider": "Tata Trusts",
+    "category": "Private / Corporate",
+    "description": "Designed for post-graduate students in technical and management domains who demonstrate leadership through team sports.",
+    "benefits": [
+      "Laptop for academic use",
+      "Direct entry into campus recruitment for corporate sports team roles"
+    ],
+    "amount": 90000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7,
+    "maxFamilyIncome": 1200000,
+    "eligibleCourses": [
+      "M.Tech",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresSports": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Sports Certificate",
+      "Other Document"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "63",
+    "code": "NSP-HE-DST-001",
+    "name": "Inspire Scholarship for Higher Education (SHE)",
+    "provider": "Department of Science and Technology (DST)",
+    "category": "Central Government",
+    "description": "A flagship program by the Department of Science and Technology to support meritorious students pursuing natural sciences at the undergraduate and postgraduate levels.",
+    "benefits": [
+      "Full tuition fee reimbursement up to limit",
+      "Monthly contingency allowance of INR 2000",
+      "Book grant of INR 5000 per annum"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 80,
+    "minAttendance": 75,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Sc",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintenance of at least 60% marks in previous academic year with no backlogs.",
+    "active": true
+  },
+  {
+    "id": "64",
+    "code": "TNDTE-TECH-2026",
+    "name": "Tamil Nadu State Technical Excellence Scholarship",
+    "provider": "Directorate of Technical Education (DOTE), Tamil Nadu",
+    "category": "State Government",
+    "description": "Scholarship for meritorious students from Tamil Nadu pursuing professional technical degrees in government and aided colleges.",
+    "benefits": [
+      "Monthly stipend of INR 10000 for technical research work",
+      "Laptop allowance for first-year students",
+      "Access to national digital library resources"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "BC",
+      "MBC",
+      "SC",
+      "ST"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 7.5 CGPA and 80% attendance.",
+    "active": true
+  },
+  {
+    "id": "65",
+    "code": "RELIANCE-LEAD-2026",
+    "name": "Reliance Foundation Leadership Scholarship",
+    "provider": "Reliance Foundation Trust",
+    "category": "Private / Corporate",
+    "description": "A corporate social responsibility initiative to support future leaders in business and management studies from economically weaker sections.",
+    "benefits": [
+      "Fixed annual grant for tuition and development fees",
+      "Mentorship program with industry leaders"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 70,
+    "maxFamilyIncome": 300000,
+    "eligibleCourses": [
+      "BBA",
+      "MBA",
+      "B.Com",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Active participation in foundation workshops and passing all subjects.",
+    "active": true
+  },
+  {
+    "id": "66",
+    "code": "UGC-NET-JRF-2026",
+    "name": "UGC Junior Research Fellowship (JRF)",
+    "provider": "University Grants Commission (UGC)",
+    "category": "Research",
+    "description": "Financial assistance for students who have qualified UGC-NET to pursue full-time research leading to Ph.D. in Humanities and Social Sciences.",
+    "benefits": [
+      "Fellowship for research scholars to cover living expenses and tuition",
+      "Conference travel grant up to INR 25000 per year"
+    ],
+    "amount": 150000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 6.5,
+    "eligibleCourses": [
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory half-yearly progress report signed by the research guide.",
+    "active": true
+  },
+  {
+    "id": "67",
+    "code": "AICTE-PRAGATI-D-2026",
+    "name": "Pragati Scholarship for Girl Students (PWD Category)",
+    "provider": "All India Council for Technical Education (AICTE)",
+    "category": "Women / Girls",
+    "description": "Special scholarship scheme aimed at providing assistance for advancement of girls pursuing technical education who also have physical disabilities.",
+    "benefits": [
+      "Special grant for female students with disabilities pursuing higher education",
+      "Conveyance allowance for non-hostellers"
+    ],
+    "amount": 40000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minAttendance": 70,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech",
+      "B.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Promotion to the next academic year without failure.",
+    "active": true
+  },
+  {
+    "id": "68",
+    "code": "NSP-RES-CSIR-01",
+    "name": "CSIR Senior Research Fellowship (SRF) Enhancement Scheme",
+    "provider": "Council of Scientific and Industrial Research (CSIR)",
+    "category": "Research",
+    "description": "A prestigious fellowship for doctoral students in Science and Technology to promote indigenous research.",
+    "benefits": [
+      "Monthly research stipend",
+      "Annual contingency grant for books and stationery",
+      "Travel allowance for national conferences"
+    ],
+    "amount": 80000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 70,
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "Ph.D",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Bonafide Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual progress report approved by Research Supervisor.",
+    "active": true
+  },
+  {
+    "id": "69",
+    "code": "NSP-RES-ICSSR-02",
+    "name": "ICSSR Doctoral Fellowship for Social Sciences",
+    "provider": "Indian Council of Social Science Research (ICSSR)",
+    "category": "Research",
+    "description": "Financial assistance to doctoral students pursuing research in Social Sciences, Economics, and Management.",
+    "benefits": [
+      "Full tuition fee waiver",
+      "Thesis preparation grant",
+      "Laptop allowance for first-year scholars"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 80,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "Ph.D",
+      "MBA",
+      "B.A"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory seminar presentation of research findings.",
+    "active": true
+  },
+  {
+    "id": "70",
+    "code": "NSP-RES-SERB-03",
+    "name": "SERB Women Excellence Research Fellowship",
+    "provider": "Science and Engineering Research Board (SERB)",
+    "category": "Research",
+    "description": "Targeted fellowship for women researchers in STEM fields to bridge the gender gap in advanced engineering research.",
+    "benefits": [
+      "Research grant for laboratory equipment",
+      "International travel support for one conference",
+      "Industrial internship placement support"
+    ],
+    "amount": 150000,
+    "openingDate": "2026-06-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minCgpa": 8,
+    "maxFamilyIncome": 1000000,
+    "eligibleCourses": [
+      "M.Tech",
+      "B.Tech",
+      "B.E",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Bonafide Certificate",
+      "Marksheet",
+      "Passport-size Photograph"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Publication of at least one paper in a peer-reviewed journal annually.",
+    "active": true
+  },
+  {
+    "id": "71",
+    "code": "NSP-RES-DHE-04",
+    "name": "Tamil Nadu State Research Support for Differently Abled Scholars",
+    "provider": "Directorate of Higher Education, Government of Tamil Nadu",
+    "category": "Research",
+    "description": "State government initiative to support students with disabilities in pursuing higher research in basic sciences.",
+    "benefits": [
+      "Financial aid for PwD scholars to procure assistive research technologies",
+      "Monthly conveyance allowance"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-12-20",
+    "eligibleStates": [
+      "Tamil Nadu"
+    ],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "minAttendance": 75,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "B.Sc",
+      "M.Sc",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Passing of all semester exams with no backlogs.",
+    "active": true
+  },
+  {
+    "id": "72",
+    "code": "NSP-RES-CORP-05",
+    "name": "Reliance Foundation Research Grant for Business Excellence",
+    "provider": "Reliance Foundation Trust",
+    "category": "Research",
+    "description": "Corporate social responsibility initiative to encourage research in commerce and business administration.",
+    "benefits": [
+      "Stipend for fieldwork in rural management research",
+      "Access to corporate research databases"
+    ],
+    "amount": 45000,
+    "openingDate": "2026-05-15",
+    "closingDate": "2026-08-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7,
+    "maxFamilyIncome": 1200000,
+    "eligibleCourses": [
+      "B.Com",
+      "BBA",
+      "MBA"
+    ],
+    "eligibleYears": [
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Bonafide Certificate",
+      "Marksheet",
+      "Other Document"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "73",
+    "code": "INST-IITM-RF-2026",
+    "name": "Institute Research Excellence Fellowship (IREF)",
+    "provider": "Indian Institute of Technology Endowment Fund",
+    "category": "Institutional",
+    "description": "A prestigious institutional fellowship for high-performing postgraduate students pursuing technical excellence at specialized engineering institutes.",
+    "benefits": [
+      "Annual tuition fee waiver up to INR 75,000",
+      "Contingency grant for project work",
+      "Access to university research labs and library resources"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-10-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 8.5,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "M.Tech",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Passport-size Photograph",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintenance of CGPA above 8.0 and satisfactory progress report from supervisor.",
+    "active": true
+  },
+  {
+    "id": "74",
+    "code": "INST-B-LEAD-2026",
+    "name": "Corporate-Institutional Leadership Grant",
+    "provider": "Symbiosis Excellence Trust",
+    "category": "Institutional",
+    "description": "Designed to support undergraduate students in business and management disciplines who demonstrate exceptional leadership potential.",
+    "benefits": [
+      "Fixed financial assistance per annum",
+      "Mentorship from industry leaders affiliated with the institution",
+      "Preference in campus recruitment drives"
+    ],
+    "amount": 35000,
+    "openingDate": "2026-06-15",
+    "closingDate": "2026-09-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 75,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "BBA",
+      "B.Com",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum 75% attendance and active participation in institutional leadership workshops.",
+    "active": true
+  },
+  {
+    "id": "75",
+    "code": "INST-JNU-SOC-2026",
+    "name": "Social Sciences Merit-cum-Means Institutional Award",
+    "provider": "Jawaharlal Nehru University Alumni Association Trust",
+    "category": "Institutional",
+    "description": "Support for students pursuing advanced studies in Humanities and Social Sciences with a focus on societal impact.",
+    "benefits": [
+      "Full tuition fee reimbursement",
+      "Monthly stipend for research materials",
+      "Free medical insurance coverage on campus"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-11-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "SC",
+      "ST",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 60,
+    "minAttendance": 80,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "B.A",
+      "Ph.D"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": true,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Community / Category Certificate",
+      "Marksheet",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Annual submission of a community impact report and passing all subjects in the first attempt.",
+    "active": true
+  },
+  {
+    "id": "76",
+    "code": "INST-AMU-SCI-2026",
+    "name": "Sir Syed Science Promotion Scholarship for Women",
+    "provider": "Aligarh Muslim University Academic Council",
+    "category": "Institutional",
+    "description": "Encouraging excellence in pure and applied sciences for undergraduate and postgraduate students.",
+    "benefits": [
+      "Lumpsum scholarship amount awarded at the start of the semester",
+      "Special laboratory access for science experiments"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-07-15",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 80,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "B.Sc",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Passport-size Photograph"
+    ],
+    "renewable": false,
+    "active": true
+  },
+  {
+    "id": "77",
+    "code": "INST-BITS-TECH-2026",
+    "name": "BITS Pilani Technical Innovation Grant",
+    "provider": "Birla Institute of Technology and Science Education Society",
+    "category": "Institutional",
+    "description": "Targeted at engineering students to foster innovation and technical proficiency in core engineering branches.",
+    "benefits": [
+      "Partial tuition fee waiver",
+      "Allowance for laptop or technical equipment purchase",
+      "Priority hostel allotment"
+    ],
+    "amount": 90000,
+    "openingDate": "2026-05-01",
+    "closingDate": "2026-08-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 7.5,
+    "maxFamilyIncome": 1000000,
+    "eligibleCourses": [
+      "B.E",
+      "B.Tech"
+    ],
+    "eligibleYears": [
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Consistent academic performance and submission of one technical project per year.",
+    "active": true
+  },
+  {
+    "id": "78",
+    "code": "CORP-HDFC-2026-01",
+    "name": "HDFC Bank Parivartan ECSS Programme",
+    "provider": "HDFC Bank Limited",
+    "category": "Private / Corporate",
+    "description": "A flagship CSR initiative by HDFC Bank to support meritorious students from low-income families pursuing professional degrees.",
+    "benefits": [
+      "Annual tuition fee reimbursement up to ₹75,000",
+      "Mentorship from industry experts",
+      "Opportunity for summer internship at HDFC Bank"
+    ],
+    "amount": 75000,
+    "openingDate": "2026-07-01",
+    "closingDate": "2026-09-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 75,
+    "maxFamilyIncome": 600000,
+    "eligibleCourses": [
+      "B.Tech",
+      "B.E",
+      "BBA",
+      "MBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Bank Passbook"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Maintain a minimum of 7.0 CGPA in every semester.",
+    "active": true
+  },
+  {
+    "id": "79",
+    "code": "CORP-RELI-2026-02",
+    "name": "Reliance Foundation Women Excellence Scholarship",
+    "provider": "Reliance Foundation Trust",
+    "category": "Private / Corporate",
+    "description": "Designed to empower women in STEM fields and arts, fostering gender equality in higher education and professional sectors.",
+    "benefits": [
+      "Direct cash transfer of ₹40,000 per annum",
+      "Access to digital learning resources and soft skills training"
+    ],
+    "amount": 40000,
+    "openingDate": "2026-08-01",
+    "closingDate": "2026-10-15",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Female",
+    "minPercentage": 65,
+    "maxFamilyIncome": 450000,
+    "eligibleCourses": [
+      "B.Sc",
+      "B.A",
+      "B.Com",
+      "M.Sc"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Income Certificate",
+      "Marksheet",
+      "Passport-size Photograph",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Consistent academic performance with at least 75% attendance.",
+    "active": true
+  },
+  {
+    "id": "80",
+    "code": "CORP-TATA-2026-03",
+    "name": "Tata Trusts Research Fellowship in Science and Humanities",
+    "provider": "Tata Trusts",
+    "category": "Private / Corporate",
+    "description": "A prestigious fellowship for research scholars pursuing advanced studies in science, technology, and humanities.",
+    "benefits": [
+      "Monthly stipend for research expenses",
+      "Travel grant for international conferences once during the tenure",
+      "Laptop allowance in the first year"
+    ],
+    "amount": 120000,
+    "openingDate": "2026-09-01",
+    "closingDate": "2026-11-30",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minCgpa": 8.5,
+    "maxFamilyIncome": 800000,
+    "eligibleCourses": [
+      "Ph.D",
+      "M.Tech"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": false,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Other Document"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Satisfactory annual progress report verified by the research supervisor.",
+    "active": true
+  },
+  {
+    "id": "81",
+    "code": "CORP-INFY-2026-04",
+    "name": "Infosys Foundation Sahyog Scholarship for Differently Abled",
+    "provider": "Infosys Foundation",
+    "category": "Private / Corporate",
+    "description": "Support for students with disabilities to ensure inclusive education and provide tools for career growth.",
+    "benefits": [
+      "Financial assistance of ₹25,000 for academic expenses",
+      "Career counseling sessions and vocational training workshops"
+    ],
+    "amount": 25000,
+    "openingDate": "2026-06-15",
+    "closingDate": "2026-08-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minAttendance": 70,
+    "maxFamilyIncome": 350000,
+    "eligibleCourses": [
+      "B.Com",
+      "B.A",
+      "B.Sc",
+      "BBA"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3
+    ],
+    "requiresDisability": true,
+    "requiresSports": false,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Disability Certificate",
+      "Income Certificate",
+      "Marksheet",
+      "Bonafide Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Minimum passing marks in all subjects and regular attendance.",
+    "active": true
+  },
+  {
+    "id": "82",
+    "code": "CORP-JSWS-2026-05",
+    "name": "JSW Sports Scholars Program",
+    "provider": "JSW Foundation Trust",
+    "category": "Private / Corporate",
+    "description": "Encouraging student-athletes who represent their state or country in sports while pursuing their higher education.",
+    "benefits": [
+      "Scholarship amount of ₹50,000 per annum",
+      "Access to JSW sports excellence centers for training and development"
+    ],
+    "amount": 50000,
+    "openingDate": "2026-08-15",
+    "closingDate": "2026-10-31",
+    "eligibleStates": [],
+    "eligibleCommunities": [
+      "OC",
+      "BC",
+      "MBC",
+      "SC",
+      "ST",
+      "Minority",
+      "EWS"
+    ],
+    "gender": "Any",
+    "minPercentage": 55,
+    "maxFamilyIncome": 500000,
+    "eligibleCourses": [
+      "B.A",
+      "B.Sc",
+      "B.Com",
+      "B.Tech",
+      "B.E"
+    ],
+    "eligibleYears": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "requiresDisability": false,
+    "requiresSports": true,
+    "requiresHosteller": false,
+    "requiredDocuments": [
+      "Aadhaar / Identity Document",
+      "Sports Certificate",
+      "Marksheet",
+      "Bonafide Certificate",
+      "Income Certificate"
+    ],
+    "renewable": true,
+    "renewalCriteria": "Participation in at least two inter-university or national level sports events annually.",
+    "active": true
+  }
+];
+
+export const CATEGORIES = [
+  "Central Government",
+  "State Government",
+  "Merit-Based",
+  "Need-Based",
+  "Community-Based",
+  "Minority",
+  "Women / Girls",
+  "Disability",
+  "Sports",
+  "Higher Education",
+  "Research",
+  "Institutional",
+  "Private / Corporate"
+];
+
+export const STATES = [
+  "Tamil Nadu",
+  "Kerala",
+  "Karnataka",
+  "Andhra Pradesh",
+  "Telangana",
+  "Maharashtra",
+  "Delhi",
+  "Gujarat",
+  "West Bengal",
+  "Rajasthan",
+  "Uttar Pradesh"
+];
+
+export const COURSES = [
+  "B.Tech",
+  "B.E",
+  "B.Sc",
+  "B.Com",
+  "B.A",
+  "BBA",
+  "M.Tech",
+  "M.Sc",
+  "MBA",
+  "Ph.D"
+];
+
+export const COMMUNITIES = [
+  "OC",
+  "BC",
+  "MBC",
+  "SC",
+  "ST",
+  "Minority",
+  "EWS"
+];
+
+export const REQUIRED_DOCUMENTS = [
+  "Aadhaar / Identity Document",
+  "Income Certificate",
+  "Community / Category Certificate",
+  "Bonafide Certificate",
+  "Marksheet",
+  "Bank Passbook",
+  "Passport-size Photograph",
+  "Disability Certificate",
+  "Sports Certificate",
+  "Previous Scholarship Certificate",
+  "Other Document"
+];

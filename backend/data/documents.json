@@ -1,0 +1,46 @@
+[
+  {
+    "id": "doc_1",
+    "name": "Aadhaar / Identity Document",
+    "fileName": "aadhaar_card_verified.pdf",
+    "size": 421000,
+    "userEmail": "student@nsp.gov.in",
+    "uploadedAt": "2026-08-10T11:20:00.000Z",
+    "status": "Verified",
+    "remark": "Verified by Nodal Officer.",
+    "verifiedAt": "2026-10-26T05:43:33.132Z"
+  },
+  {
+    "id": "doc_2",
+    "name": "Marksheet",
+    "fileName": "semester_4_grade_sheet.pdf",
+    "size": 785000,
+    "userEmail": "student@nsp.gov.in",
+    "uploadedAt": "2026-08-10T11:22:00.000Z",
+    "status": "Rejected",
+    "remark": "Certificate rejected: Unclear copy or invalid authority.",
+    "verifiedAt": "2026-10-26T05:43:26.125Z"
+  },
+  {
+    "id": "doc_3",
+    "name": "Income Certificate",
+    "fileName": "revenue_dept_income_cert.pdf",
+    "size": 512000,
+    "userEmail": "student@nsp.gov.in",
+    "uploadedAt": "2026-08-10T11:25:00.000Z",
+    "status": "Verified",
+    "remark": "Verified by Nodal Officer.",
+    "verifiedAt": "2026-10-26T05:43:42.877Z"
+  },
+  {
+    "id": "doc_4",
+    "name": "Bonafide Certificate",
+    "fileName": "college_bonafide_2026.pdf",
+    "size": 320000,
+    "userEmail": "student@nsp.gov.in",
+    "uploadedAt": "2026-08-10T11:27:00.000Z",
+    "status": "Rejected",
+    "remark": "Certificate rejected: Unclear copy or invalid authority.",
+    "verifiedAt": "2026-10-26T05:43:23.393Z"
+  }
+]

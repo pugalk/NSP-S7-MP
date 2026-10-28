@@ -1,0 +1,21 @@
+{
+  "name": "nsp-s7-mp",
+  "version": "1.0.0",
+  "description": "National Scholarship Renewal & Eligibility Re-Verification Portal (Frontend & Backend)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "start": "node start-all.js",
+    "serve": "node backend/server.js",
+    "dev": "node start-all.js"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}
