@@ -29,7 +29,11 @@ import {
   Landmark,
   FileCheck2,
   Heart,
-  Scale
+  Scale,
+  QrCode,
+  Printer,
+  Download,
+  X
 } from 'lucide-react';
 
 const STAGES = ['Submitted', 'Document Verification', 'Under Verification', 'Provider Review', 'Approved'];
@@ -55,6 +59,8 @@ export default function StudentDashboardPage() {
   const [editProfileOpen, setEditProfileOpen] = useState(false);
   const [profileForm, setProfileForm] = useState(profile);
   const [selectedEvaluation, setSelectedEvaluation] = useState(null);
+  const [selectedSanctionApp, setSelectedSanctionApp] = useState(null);
+  const [showScholarPass, setShowScholarPass] = useState(false);
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
@@ -300,17 +306,25 @@ export default function StudentDashboardPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <button
+            onClick={() => setShowScholarPass(true)}
+            className="bg-indigo-950 hover:bg-indigo-900 text-amber-300 border border-indigo-700/80 text-xs py-2.5 px-3.5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs font-bold"
+            title="View DigiLocker APAAR Digital Scholar Identity Pass"
+          >
+            <ShieldCheck className="size-3.5 text-amber-400" />
+            <span>APAAR Scholar ID</span>
+          </button>
           <Link
             to="/student/renewal"
-            className="bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-extrabold text-xs py-2.5 px-5 rounded-xl flex items-center gap-2 shadow-md transition-all hover:scale-[1.02] cursor-pointer"
+            className="bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-extrabold text-xs py-2.5 px-4 rounded-xl flex items-center gap-2 shadow-md transition-all hover:scale-[1.02] cursor-pointer"
           >
             <RefreshCw className="size-4" />
             <span>Renew Previous Award</span>
           </Link>
           <button
             onClick={() => { setProfileForm(profile); setEditProfileOpen(true); }}
-            className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs py-2.5 px-3.5 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <Edit3 className="size-3.5" />
             <span>Edit Profile</span>
@@ -694,8 +708,20 @@ export default function StudentDashboardPage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <StatusBadge status={app.status} />
+                      <button
+                        onClick={() => setSelectedSanctionApp(app)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer ${
+                          app.status === 'Approved'
+                            ? 'bg-amber-400 text-slate-950 hover:bg-amber-300 ring-2 ring-amber-300/50'
+                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300'
+                        }`}
+                        title="View official Government Sanction Order & Award Letter"
+                      >
+                        <Award className="size-3.5" />
+                        <span>{app.status === 'Approved' ? 'Award Sanction Letter' : 'Preview Sanction'}</span>
+                      </button>
                       <button
                         onClick={() => advanceApplication(app.id)}
                         className="px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-colors shadow-2xs"
@@ -1101,6 +1127,234 @@ export default function StudentDashboardPage() {
           evaluation={selectedEvaluation}
           onClose={() => setSelectedEvaluation(null)}
         />
+      )}
+
+      {/* MODAL 1: Official Government Sanction Award Order (Printable / PDF) */}
+      {selectedSanctionApp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border-4 border-amber-500/30 space-y-6 text-slate-900 animate-in zoom-in-95 duration-150 my-6 max-h-[92vh] overflow-y-auto">
+            {/* Action Bar (Not printed) */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <span className="text-xs font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                <Award className="size-3.5 text-amber-600" />
+                Government of India Sanction Order
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => window.print()}
+                  className="px-3.5 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="size-3.5" />
+                  <span>Print / Save PDF</span>
+                </button>
+                <button
+                  onClick={() => setSelectedSanctionApp(null)}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Official Certificate Body */}
+            <div className="border-2 border-slate-300 p-6 sm:p-8 rounded-2xl bg-amber-50/20 space-y-6 relative overflow-hidden text-center">
+              {/* Subtle background seal */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <ShieldCheck className="size-96 text-slate-900" />
+              </div>
+
+              {/* Header */}
+              <div className="space-y-1 relative z-10">
+                <div className="w-12 h-12 mx-auto rounded-full bg-slate-900 text-amber-400 flex items-center justify-center font-black shadow-sm mb-2">
+                  <Landmark className="size-6 text-amber-400" />
+                </div>
+                <h2 className="text-xs font-bold uppercase tracking-widest text-slate-600">
+                  Government of India • Ministry of Education
+                </h2>
+                <h3 className="text-xs font-semibold text-slate-500">
+                  Department of Higher Education &amp; National Scholarship Portal
+                </h3>
+                <h1 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight pt-2 uppercase">
+                  Scholarship Grant Sanction Order &amp; Award Letter
+                </h1>
+                <p className="text-[11px] font-mono text-slate-500 pt-1">
+                  Sanction No: <strong>NSP/EDU/2026-27/DBT-{(selectedSanctionApp.applicationId || '849201').replace(/\D/g, '').slice(-6) || '849201'}</strong> • Date: 28 Oct 2026
+                </p>
+              </div>
+
+              {/* Sanction Declaration */}
+              <div className="text-left text-xs leading-relaxed space-y-3 pt-2 text-slate-700 relative z-10 border-t border-slate-200">
+                <p>
+                  Sanction of the Competent Authority under the Central Direct Benefit Transfer (DBT) Framework is hereby conveyed for the grant of scholarship under the <strong>"{selectedSanctionApp.scholarshipName}"</strong> to the scholar whose particulars are specified below:
+                </p>
+
+                <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Scholar Name</span>
+                      <strong className="text-slate-900 font-bold">{selectedSanctionApp.applicantName || profile.fullName}</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Application ID</span>
+                      <strong className="text-blue-900 font-mono font-bold">{selectedSanctionApp.applicationId}</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Enrolled Institution</span>
+                      <span className="text-slate-800 font-medium">{profile.institution || 'Anna University, Chennai'}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Course / Year</span>
+                      <span className="text-slate-800 font-medium">{profile.course || 'B.Tech'} (Year {profile.currentYear || '3'})</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Amount Sanction Highlight */}
+                <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-300 p-4 rounded-xl text-center space-y-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 block">
+                    Sanctioned Scholarship Grant (AY 2026-27)
+                  </span>
+                  <span className="text-2xl sm:text-3xl font-black text-emerald-800 block font-mono">
+                    ₹{(selectedSanctionApp.amount || 50000).toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-xs text-emerald-700 italic block font-serif">
+                    Fifty Thousand Indian Rupees Only (100% Direct Non-Refundable Grant)
+                  </span>
+                </div>
+
+                {/* PFMS & Bank Details */}
+                <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                    Direct Benefit Transfer (DBT) Credit Details
+                  </span>
+                  <div className="grid grid-cols-3 gap-2 text-[11px]">
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Bank Name</span>
+                      <strong className="text-slate-800">{selectedSanctionApp.bankDetails?.bankName || 'State Bank of India'}</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Aadhaar-Seeded A/C</span>
+                      <strong className="text-slate-800 font-mono">{selectedSanctionApp.bankDetails?.accountNumber || '••••••••4892'}</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Disbursal Protocol</span>
+                      <strong className="text-emerald-700">PFMS APBS Direct</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* QR and Signatures */}
+              <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-left text-[11px] text-slate-500 relative z-10">
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-12 bg-white border border-slate-300 rounded-lg p-1 flex items-center justify-center shadow-2xs">
+                    <QrCode className="size-10 text-slate-900" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-slate-800 block text-[10px]">DigiLocker QR Hash</span>
+                    <span className="text-[9px] font-mono text-slate-400 block">SHA256: 8f9a2e...c419</span>
+                    <span className="text-[9px] text-emerald-700 font-bold">● Cryptographically Signed</span>
+                  </div>
+                </div>
+
+                <div className="text-right space-y-0.5">
+                  <div className="inline-block border-b border-slate-800 pb-1 text-slate-900 font-serif italic text-xs font-bold">
+                    Dr. Ramesh Kumar
+                  </div>
+                  <span className="block text-[10px] font-bold text-slate-700">State Nodal Officer</span>
+                  <span className="block text-[9px] text-slate-400">Directorate of Higher Education</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 2: APAAR Digital Scholar Identity Pass */}
+      {showScholarPass && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs">
+          <div className="bg-slate-900 text-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-700 space-y-5 animate-in zoom-in-95 duration-150 relative overflow-hidden">
+            {/* Background glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800 relative z-10">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-black">
+                  <GraduationCap className="size-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-white">APAAR Digital Scholar Pass</h3>
+                  <p className="text-[10px] text-slate-400">One Nation • One Student ID</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowScholarPass(false)}
+                className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Smart ID Card layout */}
+            <div className="bg-gradient-to-br from-[#0c1f38] via-[#122e54] to-[#0a182d] rounded-2xl p-5 border border-blue-500/30 shadow-xl space-y-4 relative overflow-hidden text-xs">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono bg-amber-400 text-slate-950 px-2 py-0.5 rounded font-black uppercase">
+                    GOI APAAR
+                  </span>
+                  <span className="text-[10px] text-slate-300 font-semibold">DigiLocker Verified</span>
+                </div>
+                <span className="text-[10px] font-mono text-emerald-400 font-bold flex items-center gap-1">
+                  <CheckCircle2 className="size-3" /> ACTIVE SCHOLAR
+                </span>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-black text-2xl shadow-md shrink-0 border-2 border-white/20">
+                  {profile.fullName ? profile.fullName.charAt(0) : 'A'}
+                </div>
+                <div className="space-y-1">
+                  <h4 className="font-extrabold text-base text-white">{profile.fullName || 'Aravind Swaminathan'}</h4>
+                  <p className="text-slate-300 text-[11px]">{profile.course || 'B.Tech'} • Year {profile.currentYear || '3'}</p>
+                  <p className="text-slate-400 text-[10px]">{profile.institution || 'Anna University, Chennai'}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5 pt-2 border-t border-white/10 text-[11px]">
+                <div className="p-2 bg-white/5 rounded-xl border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase tracking-wider block">12-Digit APAAR ID</span>
+                  <strong className="text-amber-400 font-mono font-bold">2026-8819-4021</strong>
+                </div>
+                <div className="p-2 bg-white/5 rounded-xl border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase tracking-wider block">Academic Bank (ABC)</span>
+                  <strong className="text-white font-mono font-bold">ABC-TN-904288</strong>
+                </div>
+                <div className="p-2 bg-white/5 rounded-xl border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase tracking-wider block">CGPA / Attendance</span>
+                  <strong className="text-emerald-400 font-bold">{profile.cgpa || '8.4'} CGPA • {profile.attendance || '88'}% Attn</strong>
+                </div>
+                <div className="p-2 bg-white/5 rounded-xl border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase tracking-wider block">Aadhaar Seeding</span>
+                  <strong className="text-emerald-400 font-bold flex items-center gap-1">
+                    <Check className="size-3" /> NPCI Active
+                  </strong>
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center justify-between text-[10px] text-slate-400">
+                <span>Direct Benefit Transfer Active</span>
+                <span className="font-mono">Valid AY 2026-27</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowScholarPass(false)}
+              className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+            >
+              Done / Return to Dashboard
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

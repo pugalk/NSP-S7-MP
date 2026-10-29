@@ -31,6 +31,9 @@ import {
 
 export default function Navbar() {
   const { 
+    user,
+    userRole,
+    currentUser,
     signedIn, 
     account, 
     profile,
@@ -43,6 +46,7 @@ export default function Navbar() {
     organizer,
     organizerLogout,
     backendConnected,
+    quickDemoLogin,
     wishlist = [],
     compareList = [],
     applications = [],
@@ -110,31 +114,75 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full glass-header shadow-xs">
-      {/* Top National Announcement Ribbon */}
-      <div className="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 border-b border-slate-800">
-        <div className="portal-container flex items-center justify-between">
+      {/* Top National Announcement & 3-User Role Switcher Ribbon */}
+      <div className="bg-slate-900 text-slate-300 text-xs py-1.5 px-3 sm:px-4 border-b border-slate-800">
+        <div className="portal-container flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className={`inline-block w-2 h-2 rounded-full ${!effectiveOnline ? 'bg-amber-400 animate-ping' : backendConnected ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'}`}></span>
-            <span className="font-medium truncate">National Scholarship Renewal &amp; Re-Verification Portal (AY 2026-27 Active)</span>
-            {!effectiveOnline ? (
-              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-amber-950 text-amber-300 border border-amber-700">
-                <WifiOff className="size-2.5" /> Offline PWA Mode
-              </span>
-            ) : (
-              <span className={`hidden md:inline-flex text-[10px] px-2 py-0.5 rounded font-mono font-bold ${backendConnected ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400'}`}>
-                {backendConnected ? '● Live API Synced' : '● Standalone Engine'}
+            <span className="font-semibold text-white truncate text-[11px] sm:text-xs">
+              National Scholarship Portal • AY 2026-27
+            </span>
+            {backendConnected && (
+              <span className="hidden xl:inline-flex text-[9px] px-2 py-0.2 rounded font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                ● Live API Synced
               </span>
             )}
           </div>
-          <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-400">
+
+          {/* 3 User Types Quick Switcher (For Viva / Demo Review) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 bg-slate-950/90 p-0.5 sm:p-1 rounded-xl border border-slate-800">
+            <span className="text-[10px] text-slate-400 font-mono font-bold px-1.5 hidden md:inline">
+              Role Perspective:
+            </span>
+            <button
+              onClick={() => { quickDemoLogin('student'); navigate('/student/dashboard'); }}
+              className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                signedIn && !staff && !organizer
+                  ? 'bg-amber-400 text-slate-950 shadow-xs scale-105'
+                  : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300'
+              }`}
+              title="1-Click Switch: Student / Beneficiary Dashboard"
+            >
+              <GraduationCap className="size-3 text-current" />
+              <span>1. Student</span>
+            </button>
+
+            <button
+              onClick={() => { quickDemoLogin('admin'); navigate('/admin/dashboard'); }}
+              className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                staff
+                  ? 'bg-blue-600 text-white shadow-xs scale-105'
+                  : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300'
+              }`}
+              title="1-Click Switch: Verification Officer Desk"
+            >
+              <ShieldCheck className="size-3 text-current" />
+              <span>2. Officer</span>
+            </button>
+
+            <button
+              onClick={() => { quickDemoLogin('organizer'); navigate('/organizer/dashboard'); }}
+              className={`px-2.5 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                organizer
+                  ? 'bg-purple-600 text-white shadow-xs scale-105'
+                  : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300'
+              }`}
+              title="1-Click Switch: Scheme Provider / Trust Desk"
+            >
+              <Building2 className="size-3 text-current" />
+              <span>3. Provider</span>
+            </button>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-2.5 text-[11px] text-slate-400">
             {canInstall && (
               <button
                 onClick={installApp}
-                className="text-amber-300 hover:text-white flex items-center gap-1 bg-amber-400/20 px-2 py-0.5 rounded border border-amber-400/40 font-bold transition-all cursor-pointer"
+                className="text-amber-300 hover:text-white flex items-center gap-1 bg-amber-400/20 px-2 py-0.5 rounded border border-amber-400/40 font-bold transition-all cursor-pointer text-[10px]"
                 title="Install PWA on your device"
               >
                 <Download className="size-3" />
-                <span>Install PWA App</span>
+                <span>PWA App</span>
               </button>
             )}
             <button
@@ -146,17 +194,11 @@ export default function Navbar() {
               }`}
               title="Toggle Offline Simulation"
             >
-              {isSimulatedOffline ? <WifiOff className="size-3" /> : <Wifi className="size-3" />}
-              <span>{isSimulatedOffline ? 'Offline: ON' : 'PWA Offline Test'}</span>
+              {isSimulatedOffline ? <WifiOff className="size-2.5" /> : <Wifi className="size-2.5" />}
+              <span>{isSimulatedOffline ? 'Offline' : 'Offline Test'}</span>
             </button>
-            <span className="text-slate-600">|</span>
-            <span className="text-amber-300 flex items-center gap-1 font-semibold bg-amber-400/15 px-2 py-0.5 rounded border border-amber-400/30">
-              <Sparkles className="size-3 text-amber-400 animate-pulse" />
-              <span>TOM AI Advisor Active</span>
-            </span>
-            <span className="text-slate-600">|</span>
-            <Link to="/future-scope" className="text-amber-400 hover:underline flex items-center gap-1 font-semibold">
-              Roadmap (v2.0)
+            <Link to="/future-scope" className="text-amber-400 hover:underline flex items-center gap-1 font-semibold text-[10px]">
+              DPI Sandbox
             </Link>
           </div>
         </div>
@@ -380,18 +422,40 @@ export default function Navbar() {
 
           {/* User Account / Role Switcher Menu (Flipkart Profile Dropdown) */}
           <div className="relative">
-            {signedIn || staff || organizer ? (
+            {signedIn || staff || organizer || user ? (
               <button
                 onClick={() => setAccountMenuOpen(!accountMenuOpen)}
-                className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200/80 text-slate-900 transition-colors cursor-pointer border border-slate-200"
+                className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 text-slate-900 transition-all cursor-pointer border border-slate-300 shadow-xs"
               >
-                <div className="w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-[10px]">
-                  {staff ? 'O' : organizer ? 'P' : 'S'}
+                <div className={`w-7 h-7 rounded-lg text-white flex items-center justify-center font-black text-xs shadow-xs ${
+                  (userRole === 'admin' || staff)
+                    ? 'bg-emerald-700'
+                    : (userRole === 'provider' || organizer)
+                    ? 'bg-purple-700'
+                    : 'bg-blue-900'
+                }`}>
+                  {(userRole === 'admin' || staff) ? 'A' : (userRole === 'provider' || organizer) ? 'P' : 'S'}
                 </div>
-                <span className="hidden sm:inline truncate max-w-[90px]">
-                  {staff ? staff.fullName.split(' ')[0] : organizer ? organizer.fullName.split(' ')[0] : (profile.fullName || 'Student').split(' ')[0]}
-                </span>
-                <ChevronDown className="size-3 text-slate-500" />
+                <div className="text-left hidden sm:block">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-extrabold text-slate-900 text-xs truncate max-w-[100px]">
+                      {(currentUser?.fullName || staff?.fullName || organizer?.fullName || profile?.fullName || 'User').split(' ')[0]}
+                    </span>
+                    <span className={`text-[9px] px-1.5 py-0.2 rounded font-black tracking-wide uppercase ${
+                      (userRole === 'admin' || staff)
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                        : (userRole === 'provider' || organizer)
+                        ? 'bg-purple-100 text-purple-800 border border-purple-300'
+                        : 'bg-amber-100 text-amber-800 border border-amber-300'
+                    }`}>
+                      {(userRole === 'admin' || staff) ? 'Admin' : (userRole === 'provider' || organizer) ? 'Provider' : 'Student'}
+                    </span>
+                  </div>
+                  <span className="block text-[10px] text-slate-400 font-mono">
+                    ID: {currentUser?.userIdentifier || (userRole === 'admin' ? 'OFF-BLR-09' : userRole === 'provider' ? 'ORG-TR-01' : profile?.registrationNumber || 'AU2022CS084')}
+                  </span>
+                </div>
+                <ChevronDown className="size-3 text-slate-400" />
               </button>
             ) : (
               <Link
@@ -404,20 +468,34 @@ export default function Navbar() {
             )}
 
             {/* Account Dropdown Drawer */}
-            {accountMenuOpen && (signedIn || staff || organizer) && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="p-3.5 bg-slate-900 text-white">
-                  <p className="text-xs text-slate-400">Signed in as</p>
-                  <p className="font-bold text-sm truncate">
-                    {staff ? staff.fullName : organizer ? organizer.fullName : profile.fullName || account?.fullName}
+            {accountMenuOpen && (signedIn || staff || organizer || user) && (
+              <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="p-4 bg-slate-950 text-white space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded ${
+                      (userRole === 'admin' || staff)
+                        ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                        : (userRole === 'provider' || organizer)
+                        ? 'bg-purple-950 text-purple-300 border border-purple-700'
+                        : 'bg-blue-950 text-amber-300 border border-blue-700'
+                    }`}>
+                      {(userRole === 'admin' || staff) ? 'Administrator' : (userRole === 'provider' || organizer) ? 'Scholarship Provider / Verifier' : 'Student Applicant'}
+                    </span>
+                  </div>
+                  <p className="font-extrabold text-sm truncate text-white">
+                    {currentUser?.fullName || staff?.fullName || organizer?.fullName || profile?.fullName || account?.fullName}
                   </p>
-                  <p className="text-[10px] text-amber-400 font-mono">
-                    {staff ? 'Verification Officer' : organizer ? 'Scheme Provider' : 'Student Applicant'}
+                  <p className="text-xs text-slate-400 truncate">
+                    {currentUser?.email || staff?.email || organizer?.email || account?.email || 'user@nsp.gov.in'}
+                  </p>
+                  <p className="text-[11px] text-amber-400 font-mono font-bold">
+                    User ID: {currentUser?.userIdentifier || (userRole === 'admin' ? 'OFF-BLR-09' : userRole === 'provider' ? 'ORG-TR-01' : profile?.registrationNumber || 'AU2022CS084')}
                   </p>
                 </div>
 
                 <div className="p-2 space-y-1 text-xs">
-                  {signedIn && (
+                  {/* Student Links */}
+                  {(userRole === 'student' || (!staff && !organizer && signedIn)) && (
                     <>
                       <Link
                         to="/student/dashboard"
@@ -425,23 +503,7 @@ export default function Navbar() {
                         className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
                       >
                         <FileText className="size-4 text-emerald-600" />
-                        <span>My Applications &amp; Status</span>
-                      </Link>
-                      <Link
-                        to="/wishlist"
-                        onClick={() => setAccountMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
-                      >
-                        <Heart className="size-4 text-rose-500" />
-                        <span>My Saved Wishlist ({wishlist.length})</span>
-                      </Link>
-                      <Link
-                        to="/compare"
-                        onClick={() => setAccountMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
-                      >
-                        <Scale className="size-4 text-blue-600" />
-                        <span>Compare Matrix ({compareList.length})</span>
+                        <span>My Student Dashboard</span>
                       </Link>
                       <Link
                         to="/student/renewal"
@@ -451,28 +513,46 @@ export default function Navbar() {
                         <Sparkles className="size-4 text-amber-600" />
                         <span>Renewal Re-Verification Desk</span>
                       </Link>
+                      <Link
+                        to="/wishlist"
+                        onClick={() => setAccountMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
+                      >
+                        <Heart className="size-4 text-rose-500" />
+                        <span>Saved Wishlist ({wishlist.length})</span>
+                      </Link>
+                      <Link
+                        to="/compare"
+                        onClick={() => setAccountMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
+                      >
+                        <Scale className="size-4 text-blue-600" />
+                        <span>Compare Matrix ({compareList.length})</span>
+                      </Link>
                     </>
                   )}
 
-                  {staff && (
+                  {/* Provider Links */}
+                  {(userRole === 'provider' || userRole === 'organizer' || userRole === 'verifier' || organizer) && (
                     <Link
-                      to="/admin/dashboard"
+                      to="/provider/dashboard"
                       onClick={() => setAccountMenuOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
-                    >
-                      <ShieldCheck className="size-4 text-blue-600" />
-                      <span>Officer Verification Desk</span>
-                    </Link>
-                  )}
-
-                  {organizer && (
-                    <Link
-                      to="/organizer/dashboard"
-                      onClick={() => setAccountMenuOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 text-slate-700 font-medium"
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-purple-50 text-purple-900 font-bold"
                     >
                       <Building2 className="size-4 text-purple-600" />
                       <span>Provider &amp; Disbursal Desk</span>
+                    </Link>
+                  )}
+
+                  {/* Admin Links */}
+                  {(userRole === 'admin' || staff) && (
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setAccountMenuOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-emerald-50 text-emerald-900 font-bold"
+                    >
+                      <ShieldCheck className="size-4 text-emerald-600" />
+                      <span>Officer Scrutiny &amp; Users Console</span>
                     </Link>
                   )}
 
@@ -480,11 +560,10 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         setAccountMenuOpen(false);
-                        if (staff) staffLogout();
-                        else if (organizer) organizerLogout();
-                        else logout();
+                        logout();
+                        navigate('/');
                       }}
-                      className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 font-medium cursor-pointer"
+                      className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 font-bold cursor-pointer"
                     >
                       <LogOut className="size-4" />
                       <span>Sign Out</span>
@@ -520,6 +599,39 @@ export default function Navbar() {
             />
             <Search className="size-4 text-slate-400 absolute left-3 top-2.5" />
           </form>
+
+          {/* Mobile Role Switcher */}
+          <div className="p-3 bg-slate-900 rounded-xl text-white space-y-2">
+            <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block font-mono">
+              Demo Role Perspective Switcher:
+            </span>
+            <div className="grid grid-cols-3 gap-1.5 text-[11px] font-bold">
+              <button
+                onClick={() => { quickDemoLogin('student'); navigate('/student/dashboard'); setMobileMenuOpen(false); }}
+                className={`py-1.5 px-2 rounded-lg text-center transition-colors ${
+                  signedIn && !staff && !organizer ? 'bg-amber-400 text-slate-950 font-black' : 'bg-slate-800 text-slate-300'
+                }`}
+              >
+                🎓 Student
+              </button>
+              <button
+                onClick={() => { quickDemoLogin('admin'); navigate('/admin/dashboard'); setMobileMenuOpen(false); }}
+                className={`py-1.5 px-2 rounded-lg text-center transition-colors ${
+                  staff ? 'bg-blue-600 text-white font-black' : 'bg-slate-800 text-slate-300'
+                }`}
+              >
+                🛡️ Officer
+              </button>
+              <button
+                onClick={() => { quickDemoLogin('organizer'); navigate('/organizer/dashboard'); setMobileMenuOpen(false); }}
+                className={`py-1.5 px-2 rounded-lg text-center transition-colors ${
+                  organizer ? 'bg-purple-600 text-white font-black' : 'bg-slate-800 text-slate-300'
+                }`}
+              >
+                🏛️ Provider
+              </button>
+            </div>
+          </div>
 
           {/* Mobile Navigation Links */}
           <div className="grid grid-cols-2 gap-2 text-xs">

@@ -1,5 +1,37 @@
 [
   {
+    "id": "app_1793255126815",
+    "applicationId": "NSRP-2026-292570",
+    "scholarshipId": "1",
+    "scholarshipName": "National Merit Excellence Scholarship",
+    "category": "Merit-Based",
+    "amount": 50000,
+    "userEmail": "student@nsp.gov.in",
+    "applicantName": "Aravind Swaminathan",
+    "type": "Renewal",
+    "status": "Submitted",
+    "submittedAt": "2026-10-29T06:25:26.815Z",
+    "updatedAt": "2026-10-29T06:25:26.815Z",
+    "bankDetails": {},
+    "academicDetails": {
+      "percentage": "82",
+      "cgpa": "8.4",
+      "attendance": "88"
+    },
+    "documents": [],
+    "declaration": true,
+    "remarks": "Application submitted successfully. Awaiting initial document screening.",
+    "nextAction": "Nodal verification officer will screen certificates.",
+    "history": [
+      {
+        "status": "Submitted",
+        "at": "2026-10-29T06:25:26.815Z",
+        "by": "Student",
+        "remark": "Renewal application filed successfully."
+      }
+    ]
+  },
+  {
     "id": "app_1793087991641",
     "applicationId": "NSRP-2026-867929",
     "scholarshipId": "1",

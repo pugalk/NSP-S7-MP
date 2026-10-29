@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -15,11 +15,11 @@ const isWindows = process.platform === 'win32';
 const npmCmd = isWindows ? 'npm.cmd' : 'npm';
 const nodeCmd = 'node';
 
-// Spawn Backend with watch mode
-const backend = spawn(nodeCmd, ['--watch', 'server.js'], {
+// Spawn Backend
+const backend = spawn(nodeCmd, ['server.js'], {
   cwd: path.join(__dirname, 'backend'),
   stdio: ['inherit', 'pipe', 'pipe'],
-  shell: isWindows
+  shell: false
 });
 
 backend.stdout.on('data', (data) => {
@@ -58,9 +58,18 @@ frontend.stderr.on('data', (data) => {
 });
 
 const cleanup = () => {
-  console.log('\nShutting down dev servers...');
-  backend.kill();
-  frontend.kill();
+  console.log('\nShutting down dev servers cleanly...');
+  if (isWindows) {
+    try {
+      if (backend && backend.pid) execSync(`taskkill /pid ${backend.pid} /T /F`, { stdio: 'ignore' });
+    } catch (e) {}
+    try {
+      if (frontend && frontend.pid) execSync(`taskkill /pid ${frontend.pid} /T /F`, { stdio: 'ignore' });
+    } catch (e) {}
+  } else {
+    try { backend.kill(); } catch (e) {}
+    try { frontend.kill(); } catch (e) {}
+  }
   process.exit(0);
 };
 

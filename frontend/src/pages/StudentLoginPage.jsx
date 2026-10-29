@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { usePortal } from '../context/PortalContext';
+import { api } from '../services/api';
 import { 
   GraduationCap, 
   ShieldCheck, 
@@ -31,7 +32,7 @@ import {
 } from 'lucide-react';
 
 export default function StudentLoginPage() {
-  const { login, staffLogin, organizerLogin, quickDemoLogin, signedIn, staff, organizer, notify } = usePortal();
+  const { login, staffLogin, organizerLogin, quickDemoLogin, signedIn, staff, organizer, notify, user, userRole, logout } = usePortal();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -41,18 +42,24 @@ export default function StudentLoginPage() {
 
   // Role: 'student' | 'admin' | 'organizer'
   const tabParam = searchParams.get('tab') || searchParams.get('role');
-  const initialRole = tabParam === 'admin' ? 'admin' : tabParam === 'organizer' ? 'organizer' : 'student';
+  const initialRole = (tabParam === 'admin' || tabParam === 'officer')
+    ? 'admin'
+    : (tabParam === 'organizer' || tabParam === 'provider' || tabParam === 'verifier')
+    ? 'organizer'
+    : 'student';
   const [activeRole, setActiveRole] = useState(initialRole);
 
-  // Form states
-  const [studentEmail, setStudentEmail] = useState('student@nsp.gov.in');
-  const [studentPassword, setStudentPassword] = useState('student123');
-
-  const [officerEmail, setOfficerEmail] = useState('admin@nsp.gov.in');
-  const [officerPassword, setOfficerPassword] = useState('admin');
-
-  const [organizerEmail, setOrganizerEmail] = useState('organizer@nsp.gov.in');
-  const [organizerPassword, setOrganizerPassword] = useState('organizer123');
+  // Unified Form state for User ID / Email and Password
+  const [userIdOrEmail, setUserIdOrEmail] = useState(
+    initialRole === 'admin' ? 'admin@nsp.gov.in' :
+    (initialRole === 'organizer' || initialRole === 'provider') ? 'provider@nsp.gov.in' :
+    'student@nsp.gov.in'
+  );
+  const [password, setPassword] = useState(
+    initialRole === 'admin' ? 'admin123' :
+    (initialRole === 'organizer' || initialRole === 'provider') ? 'provider123' :
+    'student123'
+  );
 
   const [showPassword, setShowPassword] = useState(false);
   const [keepSignedIn, setKeepSignedIn] = useState(true);
@@ -70,17 +77,6 @@ export default function StudentLoginPage() {
   const [recoveryEmail, setRecoveryEmail] = useState('student@nsp.gov.in');
   const [recoverySent, setRecoverySent] = useState(false);
 
-  // If already logged in, redirect to respective dashboard
-  useEffect(() => {
-    if (signedIn && activeRole === 'student') {
-      navigate('/student/dashboard');
-    } else if (staff && activeRole === 'admin') {
-      navigate('/admin/dashboard');
-    } else if (organizer && activeRole === 'organizer') {
-      navigate('/organizer/dashboard');
-    }
-  }, [signedIn, staff, organizer, activeRole, navigate]);
-
   // Resend OTP countdown timer
   useEffect(() => {
     if (activeMode === 'otp' && otpTimer > 0) {
@@ -94,6 +90,16 @@ export default function StudentLoginPage() {
   const handleRoleSelect = (role) => {
     setActiveRole(role);
     setError('');
+    if (role === 'admin') {
+      setUserIdOrEmail('admin@nsp.gov.in');
+      setPassword('admin123');
+    } else if (role === 'organizer' || role === 'provider') {
+      setUserIdOrEmail('provider@nsp.gov.in');
+      setPassword('provider123');
+    } else {
+      setUserIdOrEmail('student@nsp.gov.in');
+      setPassword('student123');
+    }
   };
 
   const handleSignIn = async (e) => {
@@ -102,27 +108,19 @@ export default function StudentLoginPage() {
     setLoading(true);
 
     try {
-      if (activeRole === 'student') {
-        const res = await login(studentEmail, studentPassword);
-        if (res && res.ok) {
-          navigate('/student/dashboard');
-        } else {
-          setError(res?.message || 'Login failed. Please verify credentials.');
-        }
-      } else if (activeRole === 'admin') {
-        const res = await staffLogin({ email: officerEmail, password: officerPassword });
-        if (res && res.ok) {
+      const res = await login(userIdOrEmail, password);
+      if (res && res.ok) {
+        if (res.redirectTo) {
+          navigate(res.redirectTo);
+        } else if (res.role === 'admin') {
           navigate('/admin/dashboard');
+        } else if (res.role === 'provider' || res.role === 'organizer' || res.role === 'verifier') {
+          navigate('/provider/dashboard');
         } else {
-          setError('Invalid administrator / verification officer credentials.');
+          navigate('/student/dashboard');
         }
-      } else if (activeRole === 'organizer') {
-        const res = await organizerLogin({ email: organizerEmail, password: organizerPassword });
-        if (res && res.ok) {
-          navigate('/organizer/dashboard');
-        } else {
-          setError('Invalid scheme organizer or trust provider credentials.');
-        }
+      } else {
+        setError(res?.message || 'Invalid User ID or password. Please verify credentials.');
       }
     } catch (err) {
       setError(err.message || 'An error occurred during sign in.');
@@ -187,30 +185,36 @@ export default function StudentLoginPage() {
     }, 700);
   };
 
-  const handleRecoverySubmit = (e) => {
+  const handleRecoverySubmit = async (e) => {
     e.preventDefault();
     if (!recoveryEmail) {
-      setError('Please provide your registered email address.');
+      setError('Please provide your registered email address or User ID.');
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await api.forgotPassword(recoveryEmail);
       setRecoverySent(true);
       notify({
-        title: 'Reset Link Dispatched',
+        title: 'Reset Instructions Dispatched',
         body: `Password recovery token sent to ${recoveryEmail}. Valid for 15 minutes.`,
         tone: 'info'
       });
-    }, 800);
+    } catch (err) {
+      setError(err.message || 'Failed to dispatch password recovery instructions.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleQuickDemo = (role) => {
-    quickDemoLogin(role);
-    if (role === 'admin') {
+    const res = quickDemoLogin(role);
+    if (res?.redirectTo) {
+      navigate(res.redirectTo);
+    } else if (role === 'admin') {
       navigate('/admin/dashboard');
-    } else if (role === 'organizer') {
-      navigate('/organizer/dashboard');
+    } else if (role === 'organizer' || role === 'provider') {
+      navigate('/provider/dashboard');
     } else {
       navigate('/student/dashboard');
     }
@@ -287,20 +291,20 @@ export default function StudentLoginPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-900 border border-blue-200">
               <span className="size-2 rounded-full bg-blue-600"></span>
               <span className="uppercase tracking-wider">
-                {activeMode === 'signin' && 'Unified Scholarship Access • Secure Workspace'}
+                {activeMode === 'signin' && 'Common Portal Entrance • All 3 Roles Supported'}
                 {activeMode === 'otp' && 'Zero-Trust Perimeter • Step 2 of 2'}
                 {activeMode === 'recovery' && 'Tier-4 Privileged Access • Recovery Sandbox'}
               </span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-              {activeMode === 'signin' && 'Welcome back'}
+              {activeMode === 'signin' && 'Common Portal Entrance'}
               {activeMode === 'otp' && 'Two-Factor Authentication'}
               {activeMode === 'recovery' && 'Reset Your Password'}
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              {activeMode === 'signin' && 'Sign in to access your scholarship applications, DBT verification, or trust grants.'}
+              {activeMode === 'signin' && 'Sign in using your assigned User ID or Email. The portal automatically detects your role (Student, Provider, or Administrator) and launches your workspace.'}
               {activeMode === 'otp' && 'Enter the 6-digit verification code generated by your authenticator app or sent to your registered mobile (••••-4892).'}
               {activeMode === 'recovery' && 'Select your preferred verification method to securely restore workspace and beneficiary access.'}
             </p>
@@ -343,52 +347,97 @@ export default function StudentLoginPage() {
             </button>
           </div>
 
-          {/* Role Switcher Pills: Student | Officer | Organizer */}
+          {/* Role Switcher Pills: Student | Provider | Administrator */}
           <div className="pt-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
-              Select Your Access Portal Role:
-            </span>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                Select Common Entrance Role:
+              </span>
+              <span className="text-[10px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                1-Click Verified Demo Credentials
+              </span>
+            </div>
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => handleRoleSelect('student')}
-                className={`py-2.5 px-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`py-2.5 px-2 rounded-xl border text-xs font-extrabold flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   activeRole === 'student'
                     ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-sm scale-[1.01]'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
                 <GraduationCap className="size-4 shrink-0" />
-                <span>Student Desk</span>
+                <span>Student</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleRoleSelect('organizer')}
+                className={`py-2.5 px-2 rounded-xl border text-xs font-extrabold flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  (activeRole === 'organizer' || activeRole === 'provider')
+                    ? 'bg-purple-900 text-white border-purple-950 shadow-sm scale-[1.01]'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                }`}
+              >
+                <Building2 className="size-4 shrink-0" />
+                <span>Provider</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleRoleSelect('admin')}
-                className={`py-2.5 px-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`py-2.5 px-2 rounded-xl border text-xs font-extrabold flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   activeRole === 'admin'
                     ? 'bg-blue-900 text-white border-blue-950 shadow-sm scale-[1.01]'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
                 <ShieldCheck className="size-4 shrink-0" />
-                <span>Officer Desk</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleRoleSelect('organizer')}
-                className={`py-2.5 px-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  activeRole === 'organizer'
-                    ? 'bg-indigo-900 text-white border-indigo-950 shadow-sm scale-[1.01]'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                <Landmark className="size-4 shrink-0" />
-                <span>Organizer Desk</span>
+                <span>Admin</span>
               </button>
             </div>
           </div>
+
+          {/* Active Session Notification (if already signed in, show notice with quick jump & switch) */}
+          {(signedIn || user) && (
+            <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-emerald-950">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="size-5 text-emerald-600 shrink-0" />
+                <div>
+                  <p className="text-xs font-black">
+                    Active Session: {user?.fullName || 'Logged in user'} ({userRole?.toUpperCase() || 'USER'})
+                  </p>
+                  <p className="text-[11px] text-emerald-700">
+                    ID: {user?.userIdentifier || user?.id || 'Active'} &bull; You can continue to your dashboard or enter another account below.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (userRole === 'admin' || staff) navigate('/admin/dashboard');
+                    else if (userRole === 'provider' || organizer) navigate('/provider/dashboard');
+                    else navigate('/student/dashboard');
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs cursor-pointer shadow-xs"
+                >
+                  Go to Dashboard
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    logout();
+                    setError('');
+                  }}
+                  className="px-2.5 py-1.5 rounded-lg bg-white border border-rose-300 text-rose-700 hover:bg-rose-50 font-bold text-xs cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Error Message Banner */}
           {error && (
@@ -399,20 +448,20 @@ export default function StudentLoginPage() {
           )}
 
           {/* ============================================================== */}
-          {/* TAB 1: EMAIL & PASSWORD SIGN IN (MATCHING REFERENCE IMAGE 1)  */}
+          {/* TAB 1: USER ID / EMAIL & PASSWORD SIGN IN                     */}
           {/* ============================================================== */}
           {activeMode === 'signin' && (
             <form onSubmit={handleSignIn} className="space-y-4 pt-2">
-              {/* Email Address with verified badge */}
+              {/* User ID / Email Address with verified badge */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-800">
-                  <label htmlFor="email">
-                    {activeRole === 'student' && 'Registered Student Email •'}
-                    {activeRole === 'admin' && 'Official Nodal Officer Email •'}
-                    {activeRole === 'organizer' && 'Trust & Foundation Email •'}
+                  <label htmlFor="userIdOrEmail">
+                    User ID or Registered Email •
                   </label>
                   <span className="text-[10px] bg-slate-100 text-slate-700 font-mono font-bold px-2 py-0.5 rounded border border-slate-200">
-                    {activeRole === 'student' ? 'Aadhaar Seeded' : 'gov.in / nic.in supported'}
+                    {activeRole === 'student' ? 'e.g. AU2022CS084 or student@nsp.gov.in' :
+                     activeRole === 'admin' ? 'e.g. OFF-BLR-09 or admin@nsp.gov.in' :
+                     'e.g. ORG-TR-01 or provider@nsp.gov.in'}
                   </span>
                 </div>
 
@@ -421,29 +470,14 @@ export default function StudentLoginPage() {
                     <Mail className="size-4" />
                   </div>
                   <input
-                    id="email"
-                    type="email"
+                    id="userIdOrEmail"
+                    type="text"
                     required
-                    value={
-                      activeRole === 'student'
-                        ? studentEmail
-                        : activeRole === 'admin'
-                        ? officerEmail
-                        : organizerEmail
-                    }
-                    onChange={(e) => {
-                      if (activeRole === 'student') setStudentEmail(e.target.value);
-                      else if (activeRole === 'admin') setOfficerEmail(e.target.value);
-                      else setOrganizerEmail(e.target.value);
-                    }}
-                    placeholder="name@nsp.gov.in"
-                    className="form-input pl-10 pr-32 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border-slate-300 focus:border-blue-900"
+                    value={userIdOrEmail}
+                    onChange={(e) => setUserIdOrEmail(e.target.value)}
+                    placeholder="Enter User ID or email"
+                    className="form-input pl-10 pr-4 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border-slate-300 focus:border-blue-900 w-full"
                   />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded flex items-center gap-1">
-                      <Check className="size-3 text-emerald-600" /> Verified Domain
-                    </span>
-                  </div>
                 </div>
               </div>
 
@@ -468,20 +502,10 @@ export default function StudentLoginPage() {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     required
-                    value={
-                      activeRole === 'student'
-                        ? studentPassword
-                        : activeRole === 'admin'
-                        ? officerPassword
-                        : organizerPassword
-                    }
-                    onChange={(e) => {
-                      if (activeRole === 'student') setStudentPassword(e.target.value);
-                      else if (activeRole === 'admin') setOfficerPassword(e.target.value);
-                      else setOrganizerPassword(e.target.value);
-                    }}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
-                    className="form-input pl-10 pr-10 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border-slate-300 focus:border-blue-900"
+                    className="form-input pl-10 pr-10 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border-slate-300 focus:border-blue-900 w-full"
                   />
                   <button
                     type="button"
@@ -491,6 +515,38 @@ export default function StudentLoginPage() {
                     {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                   </button>
                 </div>
+              </div>
+
+              {/* Quick Fill Demo Chips */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+                <span className="text-[11px] text-slate-500 font-bold">Quick Fill:</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleRoleSelect('student');
+                  }}
+                  className="px-2 py-0.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[11px] cursor-pointer"
+                >
+                  Student (AU2022CS084)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleRoleSelect('organizer');
+                  }}
+                  className="px-2 py-0.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-300 font-bold text-[11px] cursor-pointer"
+                >
+                  Provider (ORG-TR-01)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleRoleSelect('admin');
+                  }}
+                  className="px-2 py-0.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-300 font-bold text-[11px] cursor-pointer"
+                >
+                  Admin (OFF-BLR-09)
+                </button>
               </div>
 
               {/* Keep Signed In Checkbox */}

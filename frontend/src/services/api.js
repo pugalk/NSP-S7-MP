@@ -1,47 +1,103 @@
+import axios from 'axios';
+
 /**
- * API Client for National Scholarship Portal Backend API
- * Connects to Express endpoints at /api/... (proxied by Vite to port 5000 in dev)
+ * Enterprise Axios API Client for National Scholarship Renewal & Eligibility Re-Verification Portal
+ * Full JWT Bearer token authentication + MongoDB/REST backend integration.
  */
 
 const API_BASE = '/api';
 
-async function request(endpoint, options = {}) {
-  const headers = {
+export const apiClient = axios.create({
+  baseURL: API_BASE,
+  headers: {
     'Accept': 'application/json',
-    ...(options.headers || {})
-  };
+    'Content-Type': 'application/json'
+  },
+  timeout: 10000
+});
 
-  if (!(options.body instanceof FormData) && !headers['Content-Type'] && options.body) {
-    headers['Content-Type'] = 'application/json';
+// Request interceptor: Attach JWT Bearer token automatically from localStorage
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('nsp_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor: Extract response data and normalize error messages
+apiClient.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    const customError = new Error(
+      error.response?.data?.message || 
+      error.response?.data?.error || 
+      error.message || 
+      'Network request failed'
+    );
+    customError.status = error.response?.status;
+    customError.data = error.response?.data;
+    return Promise.reject(customError);
   }
-
-  const config = {
-    ...options,
-    headers
-  };
-
-  const response = await fetch(`${API_BASE}${endpoint}`, config);
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    const error = new Error(data.error || data.message || `Request failed with status ${response.status}`);
-    error.status = response.status;
-    error.data = data;
-    throw error;
-  }
-
-  return data;
-}
+);
 
 export const api = {
-  // Health
+  // System & Health
   checkHealth: async () => {
     try {
-      const res = await request('/health');
+      const res = await apiClient.get('/health');
       return { ok: true, data: res };
     } catch (err) {
       return { ok: false, error: err.message };
     }
+  },
+
+  getSystemStatus: async () => {
+    try {
+      return await apiClient.get('/system/status');
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
+  },
+
+  // Authentication & Session
+  login: async (email, password) => {
+    return apiClient.post('/auth/login', { email, password });
+  },
+
+  register: async (userData) => {
+    return apiClient.post('/auth/register', userData);
+  },
+
+  getMe: async () => {
+    return apiClient.get('/auth/me');
+  },
+
+  forgotPassword: async (email) => {
+    return apiClient.post('/auth/forgot-password', { email });
+  },
+
+  getUsers: async () => {
+    return apiClient.get('/auth/users');
+  },
+
+  updateUserRole: async (id, role) => {
+    return apiClient.patch(`/auth/users/${id}/role`, { role });
+  },
+
+  getProfile: async (email) => {
+    return apiClient.get('/auth/profile', {
+      headers: email ? { 'x-user-email': email } : {}
+    });
+  },
+
+  updateProfile: async (profileData, email) => {
+    return apiClient.put('/auth/profile', profileData, {
+      headers: email ? { 'x-user-email': email } : {}
+    });
   },
 
   // Scholarships
@@ -51,104 +107,62 @@ export const api = {
       if (v !== undefined && v !== null && v !== 'All' && v !== '') query.append(k, v);
     });
     const qs = query.toString() ? `?${query.toString()}` : '';
-    return request(`/scholarships${qs}`);
+    return apiClient.get(`/scholarships${qs}`);
   },
 
   getScholarshipById: async (id) => {
-    return request(`/scholarships/${id}`);
+    return apiClient.get(`/scholarships/${id}`);
   },
 
   createScholarship: async (schemeData) => {
-    return request('/scholarships', {
-      method: 'POST',
-      body: JSON.stringify(schemeData)
-    });
+    return apiClient.post('/scholarships', schemeData);
   },
 
   deleteScholarship: async (id) => {
-    return request(`/scholarships/${id}`, {
-      method: 'DELETE'
-    });
+    return apiClient.delete(`/scholarships/${id}`);
   },
 
-  // Eligibility
+  // Eligibility Evaluation Engine
   evaluateEligibility: async (profile) => {
-    return request('/eligibility/check', {
-      method: 'POST',
-      body: JSON.stringify(profile)
-    });
+    return apiClient.post('/eligibility/check', profile);
   },
 
   evaluateScheme: async (schemeId, profile) => {
-    return request(`/eligibility/check/${schemeId}`, {
-      method: 'POST',
-      body: JSON.stringify(profile)
-    });
+    return apiClient.post(`/eligibility/check/${schemeId}`, profile);
   },
 
-  // Auth & Profile
-  login: async (email, password) => {
-    return request('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
-    });
-  },
-
-  register: async (userData) => {
-    return request('/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(userData)
-    });
-  },
-
-  getProfile: async (email) => {
-    return request('/auth/profile', {
-      headers: { 'x-user-email': email }
-    });
-  },
-
-  updateProfile: async (profileData, email) => {
-    return request('/auth/profile', {
-      method: 'PUT',
-      headers: { 'x-user-email': email || profileData.email },
-      body: JSON.stringify(profileData)
-    });
-  },
-
-  // Applications
+  // Applications Lifecycle
   getApplications: async (email = null) => {
-    const headers = email ? { 'x-user-email': email } : {};
-    return request('/applications', { headers });
+    return apiClient.get('/applications', {
+      headers: email ? { 'x-user-email': email } : {}
+    });
   },
 
   getApplicationById: async (id) => {
-    return request(`/applications/${id}`);
+    return apiClient.get(`/applications/${id}`);
   },
 
   submitApplication: async (applicationData) => {
-    return request('/applications', {
-      method: 'POST',
-      body: JSON.stringify(applicationData)
-    });
+    return apiClient.post('/applications', applicationData);
   },
 
   advanceApplication: async (id) => {
-    return request(`/applications/${id}/advance`, {
-      method: 'POST'
-    });
+    return apiClient.post(`/applications/${id}/advance`);
   },
 
   reviewApplication: async (id, status, remarks, reviewer = 'Welfare Officer') => {
-    return request(`/applications/${id}/status`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status, remarks, reviewer })
-    });
+    return apiClient.patch(`/applications/${id}/status`, { status, remarks, reviewer });
   },
 
-  // Documents
+  batchReviewApplications: async (ids, status, remarks, reviewer = 'Nodal Officer') => {
+    return apiClient.post('/applications/batch-status', { ids, status, remarks, reviewer });
+  },
+
+  // Documents Management
   getDocuments: async (email = null) => {
-    const headers = email ? { 'x-user-email': email } : {};
-    return request('/documents', { headers });
+    return apiClient.get('/documents', {
+      headers: email ? { 'x-user-email': email } : {}
+    });
   },
 
   uploadDocument: async (file, documentName, userEmail) => {
@@ -157,70 +171,52 @@ export const api = {
     formData.append('documentName', documentName);
     if (userEmail) formData.append('userEmail', userEmail);
 
-    return request('/documents/upload', {
-      method: 'POST',
-      headers: userEmail ? { 'x-user-email': userEmail } : {},
-      body: formData
+    return apiClient.post('/documents/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        ...(userEmail ? { 'x-user-email': userEmail } : {})
+      }
     });
   },
 
   updateDocumentStatus: async (id, status, remark) => {
-    return request(`/documents/${id}/status`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status, remark })
-    });
+    return apiClient.patch(`/documents/${id}/status`, { status, remark });
   },
 
   deleteDocument: async (id) => {
-    return request(`/documents/${id}`, {
-      method: 'DELETE'
-    });
+    return apiClient.delete(`/documents/${id}`);
   },
 
-  // Admin / Officer Desk
+  // Admin Officer Desk
   adminLogin: async (email, password) => {
-    return request('/admin/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
-    });
+    return apiClient.post('/admin/login', { email, password });
   },
 
   getAdminStats: async () => {
-    return request('/admin/stats');
+    return apiClient.get('/admin/stats');
   },
 
   // TOM AI Advisor
   chatWithTom: async (message, profile = {}, history = []) => {
-    return request('/ai/chat', {
-      method: 'POST',
-      body: JSON.stringify({ message, profile, history })
-    });
+    return apiClient.post('/ai/chat', { message, profile, history });
   },
 
-  // Organizer / Scheme Provider Portal
+  // Scheme Provider / Verifier Portal
   organizerLogin: async (email, password) => {
-    return request('/organizer/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
-    });
+    return apiClient.post('/organizer/login', { email, password });
   },
 
   getOrganizerDashboard: async (email) => {
-    const headers = email ? { 'x-user-email': email } : {};
-    return request('/organizer/dashboard', { headers });
+    return apiClient.get('/organizer/dashboard', {
+      headers: email ? { 'x-user-email': email } : {}
+    });
   },
 
   createOrganizerScheme: async (schemeData) => {
-    return request('/organizer/schemes', {
-      method: 'POST',
-      body: JSON.stringify(schemeData)
-    });
+    return apiClient.post('/organizer/schemes', schemeData);
   },
 
   sanctionOrganizerApplication: async (id, decision, remark) => {
-    return request(`/organizer/applications/${id}/sanction`, {
-      method: 'PATCH',
-      body: JSON.stringify({ decision, remark })
-    });
+    return apiClient.patch(`/organizer/applications/${id}/sanction`, { decision, remark });
   }
 };

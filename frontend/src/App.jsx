@@ -6,8 +6,9 @@ import Footer from './components/Footer';
 import TomAIAssistant from './components/TomAIAssistant';
 import OfflineBanner from './components/OfflineBanner';
 import PWAInstallBanner from './components/PWAInstallBanner';
-import FlipkartCategoryBar from './components/FlipkartCategoryBar';
+import FlipkartCategoryBar from './components/CategoryBar';
 import CompareFloatingDock from './components/CompareFloatingDock';
+import WelcomePage from './pages/WelcomePage';
 import HomePage from './pages/HomePage';
 import ScholarshipsPage from './pages/ScholarshipsPage';
 import ScholarshipDetailPage from './pages/ScholarshipDetailPage';
@@ -28,27 +29,45 @@ import FutureScopePage from './pages/FutureScopePage';
 
 // Route guard for student-only pages
 function StudentProtectedRoute({ children }) {
-  const { signedIn } = usePortal();
-  if (!signedIn) {
-    return <Navigate to="/login?tab=student" replace />;
+  const { signedIn, user, userRole } = usePortal();
+  if (!signedIn && !user) {
+    return <Navigate to="/login?role=student" replace />;
+  }
+  if (userRole === 'admin') {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+  if (userRole === 'provider' || userRole === 'organizer' || userRole === 'verifier') {
+    return <Navigate to="/provider/dashboard" replace />;
   }
   return children;
 }
 
-// Route guard for officer-only pages
-function OfficerProtectedRoute({ children }) {
-  const { staff } = usePortal();
-  if (!staff) {
-    return <Navigate to="/login?tab=admin" replace />;
+// Route guard for officer/admin-only pages
+function AdminProtectedRoute({ children }) {
+  const { staff, user, userRole } = usePortal();
+  if (!staff && !user) {
+    return <Navigate to="/login?role=admin" replace />;
+  }
+  if (userRole === 'student') {
+    return <Navigate to="/student/dashboard" replace />;
+  }
+  if (userRole === 'provider' || userRole === 'organizer' || userRole === 'verifier') {
+    return <Navigate to="/provider/dashboard" replace />;
   }
   return children;
 }
 
-// Route guard for organizer-only pages
-function OrganizerProtectedRoute({ children }) {
-  const { organizer } = usePortal();
-  if (!organizer) {
-    return <Navigate to="/login?tab=organizer" replace />;
+// Route guard for provider/verifier-only pages
+function ProviderProtectedRoute({ children }) {
+  const { organizer, user, userRole } = usePortal();
+  if (!organizer && !user) {
+    return <Navigate to="/login?role=provider" replace />;
+  }
+  if (userRole === 'student') {
+    return <Navigate to="/student/dashboard" replace />;
+  }
+  if (userRole === 'admin') {
+    return <Navigate to="/admin/dashboard" replace />;
   }
   return children;
 }
@@ -66,11 +85,16 @@ export default function App() {
       <OfflineBanner />
       <PWAInstallBanner />
       <Navbar />
-      <FlipkartCategoryBar />
+      {/* Category Bar for browsing schemes catalog (hidden on Common Entrance and Auth pages) */}
+      {!['/', '/welcome', '/login', '/register'].includes(location.pathname) && (
+        <FlipkartCategoryBar />
+      )}
       <main className="flex-1">
         <Routes>
-          {/* Welcome / Landing Page */}
-          <Route path="/" element={<HomePage />} />
+          {/* 1. Master Welcome Page (Entry Point) */}
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/home" element={<HomePage />} />
           
           {/* Public Discovery Pages */}
           <Route path="/scholarships" element={<ScholarshipsPage />} />
@@ -82,12 +106,15 @@ export default function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/future-scope" element={<FutureScopePage />} />
           
-          {/* Authentication Gateway */}
+          {/* 2. Authentication Gateway */}
           <Route path="/login" element={<StudentLoginPage />} />
           <Route path="/register" element={<StudentRegisterPage />} />
-          <Route path="/admin/login" element={<StudentLoginPage />} />
+          <Route path="/admin/login" element={<Navigate to="/login?role=admin" replace />} />
+          <Route path="/provider/login" element={<Navigate to="/login?role=provider" replace />} />
+          <Route path="/organizer/login" element={<Navigate to="/login?role=provider" replace />} />
           
-          {/* User-Based Dashboards & Workflows (Protected) */}
+          {/* 3. Role-Based Dashboards & Workflows (Protected) */}
+          {/* Role 1: Student Dashboard */}
           <Route
             path="/student/dashboard"
             element={
@@ -113,26 +140,33 @@ export default function App() {
             }
           />
           
-          {/* Officer Verification Desk (Protected) */}
+          {/* Role 2: Scholarship Provider / Verifier Dashboard */}
           <Route
-            path="/admin/dashboard"
+            path="/provider/dashboard"
             element={
-              <OfficerProtectedRoute>
-                <AdminDashboardPage />
-              </OfficerProtectedRoute>
+              <ProviderProtectedRoute>
+                <OrganizerDashboardPage />
+              </ProviderProtectedRoute>
             }
           />
-
-          {/* Scheme Organizer & Provider Desk (Protected) */}
           <Route
             path="/organizer/dashboard"
             element={
-              <OrganizerProtectedRoute>
+              <ProviderProtectedRoute>
                 <OrganizerDashboardPage />
-              </OrganizerProtectedRoute>
+              </ProviderProtectedRoute>
             }
           />
-          <Route path="/organizer/login" element={<Navigate to="/login?tab=organizer" replace />} />
+
+          {/* Role 3: Administrator Dashboard */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminProtectedRoute>
+                <AdminDashboardPage />
+              </AdminProtectedRoute>
+            }
+          />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

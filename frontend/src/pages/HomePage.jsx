@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { usePortal } from '../context/PortalContext';
 import { CATEGORIES } from '../data/scholarships';
 import ScholarshipCard from '../components/ScholarshipCard';
-import FlipkartBannerSlider from '../components/FlipkartBannerSlider';
+import FlipkartBannerSlider from '../components/BannerSlider';
 import { 
   GraduationCap, 
   Search, 

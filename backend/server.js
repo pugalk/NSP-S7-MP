@@ -3,6 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { connectDB, getDBStatus } from './config/db.js';
 
 import scholarshipsRouter from './routes/scholarships.js';
 import eligibilityRouter from './routes/eligibility.js';
@@ -36,6 +37,20 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     message: 'National Scholarship Portal API Server is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Database & System Status
+app.get('/api/system/status', (req, res) => {
+  res.json({
+    status: 'ok',
+    portal: 'National Scholarship Renewal & Eligibility Re-Verification Portal',
+    database: getDBStatus(),
+    auth: {
+      type: 'JWT + bcrypt',
+      roles: ['student', 'provider', 'admin']
+    },
     timestamp: new Date().toISOString()
   });
 });
@@ -81,7 +96,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+// Initialize database connection (Mongoose with auto fallback)
+connectDB().catch(err => {
+  console.warn('[DB INIT NOTE]', err.message);
+});
+
+const server = app.listen(PORT, () => {
   console.log(`====================================================`);
   console.log(` National Scholarship Portal API Server`);
   console.log(` Running on: http://localhost:${PORT}`);
@@ -90,7 +110,18 @@ app.listen(PORT, () => {
   console.log(`   - GET  /api/scholarships`);
   console.log(`   - POST /api/eligibility/check`);
   console.log(`   - POST /api/auth/login`);
+  console.log(`   - GET  /api/auth/me`);
   console.log(`   - GET  /api/applications`);
   console.log(`   - GET  /api/admin/stats`);
   console.log(`====================================================`);
 });
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`[PORT IN USE] Port ${PORT} is occupied by another process.`);
+  } else {
+    console.error('Server error:', err);
+  }
+});
+
+export { app, server };

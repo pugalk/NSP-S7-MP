@@ -32,6 +32,7 @@ const INITIAL_PROFILE = {
 };
 
 const INITIAL_STATE = {
+  user: null,
   account: null,
   signedIn: false,
   profile: INITIAL_PROFILE,
@@ -197,6 +198,46 @@ export function PortalProvider({ children }) {
     }
   }, [state, hydrated]);
 
+  // Maintain active authentication session on page refresh via JWT Bearer Token
+  useEffect(() => {
+    const token = localStorage.getItem('nsp_token');
+    if (!token) return;
+
+    let active = true;
+    const restoreSession = async () => {
+      try {
+        const res = await api.getMe();
+        if (res && res.success && res.user && active) {
+          const userObj = res.user;
+          const role = userObj.role || 'student';
+
+          setState(prev => {
+            const nextStaff = role === 'admin' ? userObj : null;
+            const nextOrganizer = (role === 'provider' || role === 'organizer' || role === 'verifier') ? userObj : null;
+            const nextAccount = role === 'student' ? userObj : userObj;
+
+            return {
+              ...prev,
+              user: userObj,
+              account: nextAccount,
+              staff: nextStaff,
+              organizer: nextOrganizer,
+              signedIn: true,
+              profile: res.profile ? { ...prev.profile, ...res.profile } : prev.profile
+            };
+          });
+        }
+      } catch (err) {
+        if (err.status === 401 || err.status === 403) {
+          localStorage.removeItem('nsp_token');
+        }
+      }
+    };
+
+    restoreSession();
+    return () => { active = false; };
+  }, []);
+
   // Sync with backend API when online
   useEffect(() => {
     let mounted = true;
@@ -321,115 +362,144 @@ export function PortalProvider({ children }) {
   }, [backendConnected]);
 
   const login = useCallback(async (email, password) => {
-    if (!email) return { ok: false, message: 'Please enter your email.' };
+    if (!email) return { ok: false, message: 'Please enter your User ID or email.' };
+    if (!password) return { ok: false, message: 'Please enter your password.' };
 
-    if (backendConnected) {
-      try {
-        const res = await api.login(email, password);
-        if (res && res.profile) {
-          setState(prev => ({
-            ...prev,
-            account: {
-              fullName: res.user?.fullName || res.profile.fullName || 'Student Applicant',
-              email: res.user?.email || email,
-              role: res.user?.role || 'student'
-            },
-            profile: { ...prev.profile, ...res.profile },
-            signedIn: true
-          }));
-          notify({
-            title: 'Signed in successfully',
-            body: `Welcome back, ${email}! (Authenticated via Live API)`,
-            tone: 'success'
-          });
-          return { ok: true };
+    try {
+      const res = await api.login(email.trim(), password);
+      if (res && res.token && res.user) {
+        localStorage.setItem('nsp_token', res.token);
+        const userObj = res.user;
+        const role = userObj.role || 'student';
+        let redirectTo = '/student/dashboard';
+
+        if (role === 'admin') {
+          redirectTo = '/admin/dashboard';
+        } else if (role === 'provider' || role === 'organizer' || role === 'verifier') {
+          redirectTo = '/provider/dashboard';
+        } else {
+          redirectTo = '/student/dashboard';
         }
-      } catch (err) {
-        console.warn('Backend login attempt fell back to local credentials:', err.message);
+
+        setState(prev => ({
+          ...prev,
+          user: userObj,
+          account: role === 'student' ? userObj : userObj,
+          staff: role === 'admin' ? userObj : null,
+          organizer: (role === 'provider' || role === 'organizer' || role === 'verifier') ? userObj : null,
+          signedIn: true,
+          profile: res.profile ? { ...prev.profile, ...res.profile } : prev.profile
+        }));
+
+        notify({
+          title: 'Authentication Successful',
+          body: `Welcome back, ${userObj.fullName}! Role: ${role.toUpperCase()} (ID: ${userObj.userIdentifier || userObj.id}).`,
+          tone: 'success'
+        });
+
+        return { ok: true, role, redirectTo, user: userObj };
+      } else {
+        return { ok: false, message: res?.message || 'Login failed. Invalid response from server.' };
       }
+    } catch (err) {
+      console.warn('API Login error:', err.message);
+      return { 
+        ok: false, 
+        message: err.data?.message || err.message || 'Invalid credentials. Please verify your User ID and password.' 
+      };
     }
-
-    setState(prev => ({
-      ...prev,
-      account: {
-        fullName: prev.profile.fullName || 'Student Applicant',
-        email,
-        role: 'student'
-      },
-      signedIn: true
-    }));
-
-    notify({
-      title: 'Signed in successfully',
-      body: `Welcome back, ${email}!`,
-      tone: 'success'
-    });
-
-    return { ok: true };
-  }, [backendConnected, notify]);
+  }, [notify]);
 
   const logout = useCallback(() => {
-    setState(prev => ({ ...prev, signedIn: false, account: null }));
+    localStorage.removeItem('nsp_token');
+    setState(prev => ({ 
+      ...prev, 
+      user: null, 
+      signedIn: false, 
+      account: null, 
+      staff: null, 
+      organizer: null 
+    }));
     notify({
       title: 'Signed Out',
-      body: 'You have been safely signed out.',
+      body: 'You have been safely signed out. Redirecting to Welcome page...',
       tone: 'info'
     });
   }, [notify]);
 
   const quickDemoLogin = useCallback((role = 'student') => {
+    let mockUser;
+    let redirectTo = '/student/dashboard';
+
     if (role === 'admin' || role === 'officer') {
-      const staff = {
-        id: 'staff_01',
+      mockUser = {
+        id: 'usr_admin_01',
         fullName: 'Dr. Ramesh Kumar',
         email: 'admin@nsp.gov.in',
-        role: 'State Nodal Officer',
-        department: 'Directorate of Higher Education'
+        role: 'admin',
+        userIdentifier: 'OFF-BLR-09',
+        organization: 'Ministry of Education & Social Justice',
+        department: 'Directorate of Collegiate & Higher Education'
       };
-      setState(prev => ({ ...prev, staff }));
-      notify({
-        title: 'Officer Desk Active',
-        body: 'Signed in as State Nodal Officer (Dr. Ramesh Kumar).',
-        tone: 'info'
-      });
-      return { ok: true, role: 'admin', staff };
-    } else if (role === 'organizer') {
-      const organizer = {
-        id: 'org_01',
+      redirectTo = '/admin/dashboard';
+      setState(prev => ({ 
+        ...prev, 
+        user: mockUser,
+        staff: mockUser,
+        account: mockUser,
+        organizer: null,
+        signedIn: true 
+      }));
+    } else if (role === 'organizer' || role === 'provider') {
+      mockUser = {
+        id: 'usr_provider_01',
         fullName: 'Vikram Singhania',
-        email: 'organizer@nsp.gov.in',
+        email: 'provider@nsp.gov.in',
+        role: 'provider',
+        userIdentifier: 'ORG-TR-01',
         organization: 'National Higher Education Foundation & CSR Trust',
-        role: 'organizer',
-        designation: 'Scholarship Program Director',
+        department: 'Scholarship Disbursal & CSR Grants Desk',
         allocatedBudget: 25000000,
         managedSchemeIds: ['1', '2', '3', '4']
       };
-      setState(prev => ({ ...prev, organizer }));
-      notify({
-        title: 'Organizer Portal Active',
-        body: 'Signed in as Scheme Organizer (Vikram Singhania).',
-        tone: 'success'
-      });
-      return { ok: true, role: 'organizer', organizer };
+      redirectTo = '/provider/dashboard';
+      setState(prev => ({ 
+        ...prev, 
+        user: mockUser,
+        organizer: mockUser,
+        account: mockUser,
+        staff: null,
+        signedIn: true 
+      }));
     } else {
-      const account = {
+      mockUser = {
+        id: 'usr_student_01',
         fullName: 'Aravind Swaminathan',
         email: 'student@nsp.gov.in',
-        role: 'student'
+        role: 'student',
+        userIdentifier: 'AU2022CS084',
+        organization: 'Anna University, Chennai',
+        department: 'Computer Science and Engineering'
       };
+      redirectTo = '/student/dashboard';
       setState(prev => ({
         ...prev,
-        account,
+        user: mockUser,
+        account: mockUser,
+        staff: null,
+        organizer: null,
         signedIn: true,
         profile: prev.profile || INITIAL_PROFILE
       }));
-      notify({
-        title: 'Signed in as Student',
-        body: 'Welcome back to your personalized dashboard, Aravind!',
-        tone: 'success'
-      });
-      return { ok: true, role: 'student', account };
     }
+
+    notify({
+      title: `Signed in as ${mockUser.fullName}`,
+      body: `Assigned Role: ${role.toUpperCase()} (User ID: ${mockUser.userIdentifier}).`,
+      tone: 'success'
+    });
+
+    return { ok: true, role, redirectTo, user: mockUser };
   }, [notify]);
 
   const updateProfile = useCallback(async (updates) => {
@@ -585,6 +655,45 @@ export function PortalProvider({ children }) {
     });
   }, [backendConnected, scholarships]);
 
+  const batchReviewApplications = useCallback(async (ids, status, remarks, reviewer = 'Nodal Officer') => {
+    const now = new Date().toISOString();
+    if (backendConnected) {
+      try {
+        await api.batchReviewApplications(ids, status, remarks, reviewer);
+      } catch (err) {
+        console.warn('Backend batch review sync warning:', err.message);
+      }
+    }
+
+    setState(prev => {
+      const idSet = new Set(ids);
+      return {
+        ...prev,
+        applications: prev.applications.map(a => {
+          if (!idSet.has(a.id) && !idSet.has(a.applicationId)) return a;
+          return {
+            ...a,
+            status,
+            remarks: remarks || a.remarks,
+            updatedAt: now,
+            history: [...(a.history || []), { status, at: now, by: reviewer, remark: remarks || `Batch updated to ${status}` }]
+          };
+        }),
+        notifications: [
+          {
+            id: Math.random().toString(36).slice(2, 9),
+            title: `Batch decision: ${status}`,
+            body: `${ids.length} applications batch processed to "${status}".`,
+            createdAt: now,
+            read: false,
+            tone: status === 'Approved' ? 'success' : 'info'
+          },
+          ...prev.notifications
+        ]
+      };
+    });
+  }, [backendConnected]);
+
   const addDocument = useCallback(async (name, file) => {
     let newDoc = {
       id: Math.random().toString(36).slice(2, 9),
@@ -647,73 +756,20 @@ export function PortalProvider({ children }) {
   }, [backendConnected]);
 
   const staffLogin = useCallback(async (credentials) => {
-    let staff = {
-      id: 'staff_01',
-      fullName: 'Dr. Ramesh Kumar',
-      email: credentials.email || 'admin@nsp.gov.in',
-      role: 'State Nodal Officer',
-      department: 'Directorate of Higher Education'
-    };
-
-    if (backendConnected) {
-      try {
-        const res = await api.adminLogin(credentials.email, credentials.password);
-        if (res && res.staff) {
-          staff = res.staff;
-        }
-      } catch (err) {
-        console.warn('Backend staff login warning:', err.message);
-      }
-    }
-
-    setState(prev => ({ ...prev, staff }));
-    return { ok: true, staff };
-  }, [backendConnected]);
+    return login(credentials.email || 'admin@nsp.gov.in', credentials.password || 'admin123');
+  }, [login]);
 
   const staffLogout = useCallback(() => {
-    setState(prev => ({ ...prev, staff: null }));
-  }, []);
+    logout();
+  }, [logout]);
 
   const organizerLogin = useCallback(async (credentials) => {
-    let organizer = {
-      id: 'org_01',
-      fullName: 'Vikram Singhania',
-      email: credentials.email || 'organizer@nsp.gov.in',
-      organization: 'National Higher Education Foundation & CSR Trust',
-      role: 'organizer',
-      designation: 'Scholarship Program Director',
-      allocatedBudget: 25000000,
-      managedSchemeIds: ['1', '2', '3', '4']
-    };
-
-    if (backendConnected) {
-      try {
-        const res = await api.organizerLogin(credentials.email, credentials.password);
-        if (res && res.organizer) {
-          organizer = res.organizer;
-        }
-      } catch (err) {
-        console.warn('Backend organizer login warning:', err.message);
-      }
-    }
-
-    setState(prev => ({ ...prev, organizer }));
-    notify({
-      title: 'Organizer Portal Active',
-      body: `Signed in as ${organizer.fullName} (${organizer.organization}).`,
-      tone: 'success'
-    });
-    return { ok: true, organizer };
-  }, [backendConnected, notify]);
+    return login(credentials.email || 'provider@nsp.gov.in', credentials.password || 'provider123');
+  }, [login]);
 
   const organizerLogout = useCallback(() => {
-    setState(prev => ({ ...prev, organizer: null }));
-    notify({
-      title: 'Signed Out',
-      body: 'You have been signed out from the Organizer Portal.',
-      tone: 'info'
-    });
-  }, [notify]);
+    logout();
+  }, [logout]);
 
   const unreadCount = useMemo(() => {
     return state.notifications.filter(n => !n.read).length;
@@ -880,8 +936,14 @@ export function PortalProvider({ children }) {
     return { ok: true };
   }, [backendConnected, notify]);
 
+  const currentUser = state.user || state.staff || state.organizer || (state.signedIn ? state.account : null);
+  const userRole = currentUser?.role || (state.staff ? 'admin' : state.organizer ? 'provider' : state.signedIn ? 'student' : null);
+
   const value = {
     ...state,
+    user: currentUser,
+    currentUser,
+    userRole,
     wishlist,
     compareList,
     scholarships,
@@ -895,6 +957,7 @@ export function PortalProvider({ children }) {
     addApplication,
     advanceApplication,
     reviewApplication,
+    batchReviewApplications,
     addDocument,
     removeDocument,
     setDocumentStatus,

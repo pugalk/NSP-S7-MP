@@ -221,4 +221,31 @@ router.post('/:id/advance', (req, res) => {
   res.json({ success: true, application: app });
 });
 
+// POST /api/applications/batch-status (Admin batch actions)
+router.post('/batch-status', (req, res) => {
+  const { ids = [], status, remarks, reviewer = 'Nodal Officer' } = req.body;
+  const applications = getApplications();
+  const now = new Date().toISOString();
+  let updatedCount = 0;
+
+  applications.forEach(app => {
+    if (ids.includes(app.id) || ids.includes(app.applicationId)) {
+      app.status = status;
+      app.remarks = remarks || `Batch updated to ${status} by ${reviewer}`;
+      app.updatedAt = now;
+      if (!app.history) app.history = [];
+      app.history.push({
+        status,
+        at: now,
+        by: reviewer,
+        remark: remarks || `Batch updated to ${status}`
+      });
+      updatedCount++;
+    }
+  });
+
+  saveApplications(applications);
+  res.json({ success: true, updatedCount, applications });
+});
+
 export default router;

@@ -25,7 +25,10 @@ import {
   Check,
   Eye,
   AlertCircle,
-  Trash2
+  Trash2,
+  Printer,
+  QrCode,
+  Download
 } from 'lucide-react';
 
 export default function OrganizerDashboardPage() {
@@ -45,6 +48,7 @@ export default function OrganizerDashboardPage() {
   const [filterStatus, setFilterStatus] = useState('All');
   const [search, setSearch] = useState('');
   const [showNewSchemeModal, setShowNewSchemeModal] = useState(false);
+  const [showCSRCert, setShowCSRCert] = useState(false);
   const [selectedApp, setSelectedApp] = useState(null);
   const [sanctionRemark, setSanctionRemark] = useState('');
   const [sanctioning, setSanctioning] = useState(false);
@@ -231,7 +235,10 @@ export default function OrganizerDashboardPage() {
                 {organizer?.fullName || 'Vikram Singhania'}
               </h1>
               <span className="text-[11px] font-mono bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded-full font-extrabold uppercase tracking-wider">
-                Scheme Organizer Portal
+                Scholarship Provider / Verifier
+              </span>
+              <span className="text-[11px] font-mono bg-purple-950 text-purple-300 border border-purple-700 px-2.5 py-0.5 rounded-full font-bold">
+                User ID: {organizer?.userIdentifier || 'ORG-TR-01'}
               </span>
             </div>
             <p className="text-xs text-indigo-200 mt-1 flex items-center gap-1.5 font-medium">
@@ -368,6 +375,18 @@ export default function OrganizerDashboardPage() {
         >
           <Award className="size-4" />
           <span>Managed Schemes ({managedSchemes.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('analytics')}
+          className={`py-3 px-5 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+            activeTab === 'analytics'
+              ? 'border-indigo-900 text-indigo-950'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+          }`}
+        >
+          <Sparkles className="size-4 text-amber-500" />
+          <span>Disbursal &amp; Impact Analytics</span>
         </button>
       </div>
 
@@ -560,6 +579,123 @@ export default function OrganizerDashboardPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: Disbursal & Impact Analytics */}
+      {activeTab === 'analytics' && (
+        <div className="space-y-6">
+          {/* Top Banner */}
+          <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900/60 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1.5">
+              <span className="text-xs font-mono font-bold text-amber-400 bg-amber-400/15 border border-amber-400/30 px-3 py-1 rounded-full uppercase tracking-wider">
+                CSR &amp; Endowment Trust Portal
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black">
+                {organizer?.organization || 'National Higher Education Foundation & CSR Trust'}
+              </h2>
+              <p className="text-xs text-indigo-200 max-w-xl">
+                Statutory CSR impact metrics, gender diversity indices, and direct-to-bank disbursal records compliant with Section 135 Companies Act &amp; 80G Tax Exemption.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowCSRCert(true)}
+              className="px-4 py-2.5 rounded-xl text-xs font-black bg-amber-400 hover:bg-amber-300 text-slate-950 transition-all flex items-center gap-2 shadow-lg cursor-pointer self-start md:self-auto"
+            >
+              <Printer className="size-4" />
+              <span>Generate CSR Utilization Certificate</span>
+            </button>
+          </div>
+
+          {/* Fund Utilization Progress Bar */}
+          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="font-extrabold text-sm text-slate-900">Total Sanctioned Trust Budget Utilization</h3>
+                <p className="text-xs text-slate-500">AY 2026-27 Allocation vs Released Grants</p>
+              </div>
+              <div className="text-right">
+                <span className="text-base font-black text-indigo-950 font-mono">
+                  {formatCurrency(disbursedAmount)} / {formatCurrency(totalBudget)}
+                </span>
+                <span className="text-[10px] text-emerald-700 block font-bold">
+                  {((disbursedAmount / totalBudget) * 100).toFixed(2)}% Disbursed to Scholars
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-emerald-500 to-indigo-600 rounded-full transition-all duration-500"
+                  style={{ width: `${Math.max(1, (disbursedAmount / totalBudget) * 100)}%` }}
+                ></div>
+              </div>
+              <div className="flex justify-between text-[11px] text-slate-400 font-mono">
+                <span>₹0 Disbursed</span>
+                <span>Buffer Remaining: {formatCurrency(remainingBudget)}</span>
+                <span>Cap: {formatCurrency(totalBudget)}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Diversity & Social Impact Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+                <span>Gender Inclusion Ratio</span>
+                <span className="text-[10px] bg-pink-100 text-pink-800 px-2 py-0.5 rounded-full font-bold">High Equality</span>
+              </div>
+              <span className="text-2xl font-black text-pink-700 block">54% Women Scholars</span>
+              <p className="text-[11px] text-slate-500">
+                Flagship female STEM scholars and Begum Hazrat Mahal girls education grant beneficiaries.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+                <span>Rural Outreach (Tier 2/3)</span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Pan-India</span>
+              </div>
+              <span className="text-2xl font-black text-emerald-700 block">68% Rural Coverage</span>
+              <p className="text-[11px] text-slate-500">
+                Students enrolled in district and state government colleges across 11 Indian states.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+                <span>Average Beneficiary CGPA</span>
+                <span className="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">High Merit</span>
+              </div>
+              <span className="text-2xl font-black text-blue-900 block">8.2 CGPA</span>
+              <p className="text-[11px] text-slate-500">
+                Stringent merit requirements filter verified students with &gt; 80% attendance.
+              </p>
+            </div>
+          </div>
+
+          {/* Top Recipient Institutions */}
+          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-3">
+            <h3 className="font-extrabold text-sm text-slate-900">Top Recipient Higher Education Institutions</h3>
+            <div className="divide-y divide-slate-100 text-xs">
+              {[
+                { name: 'Anna University, Chennai (College of Engineering Guindy)', state: 'Tamil Nadu', count: 18, sum: '₹9,00,000' },
+                { name: 'Indian Institute of Technology (IIT) Madras', state: 'Tamil Nadu', count: 12, sum: '₹9,60,000' },
+                { name: 'Delhi Technological University (DTU)', state: 'Delhi', count: 10, sum: '₹6,00,000' },
+                { name: 'Jadavpur University, Kolkata', state: 'West Bengal', count: 8, sum: '₹4,80,000' }
+              ].map((inst, i) => (
+                <div key={i} className="py-2.5 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-slate-900 block">{inst.name}</span>
+                    <span className="text-[11px] text-slate-400">{inst.state} • {inst.count} Beneficiaries</span>
+                  </div>
+                  <span className="font-mono font-black text-emerald-700 text-xs">{inst.sum}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -811,6 +947,105 @@ export default function OrganizerDashboardPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* MODAL: Foundation CSR Utilization Certificate */}
+      {showCSRCert && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border-4 border-indigo-500/30 space-y-6 text-slate-900 animate-in zoom-in-95 duration-150 my-6 max-h-[92vh] overflow-y-auto">
+            {/* Header / Actions */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <span className="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                <Landmark className="size-3.5 text-indigo-600" />
+                Statutory CSR Compliance Certificate
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => window.print()}
+                  className="px-3.5 py-1.5 bg-indigo-950 hover:bg-indigo-900 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="size-3.5" />
+                  <span>Print Certificate</span>
+                </button>
+                <button
+                  onClick={() => setShowCSRCert(false)}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Certificate Body */}
+            <div className="border-2 border-indigo-200 p-6 sm:p-8 rounded-2xl bg-indigo-50/15 space-y-6 text-center relative overflow-hidden">
+              <div className="space-y-1">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-indigo-900 to-slate-950 text-amber-400 flex items-center justify-center font-black shadow-md mb-2">
+                  <Landmark className="size-7 text-amber-400" />
+                </div>
+                <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-900">
+                  {organizer?.organization || 'National Higher Education Foundation & CSR Trust'}
+                </h2>
+                <h1 className="text-lg sm:text-xl font-black text-slate-900 uppercase pt-1">
+                  CSR Grant Utilization &amp; Compliance Certificate
+                </h1>
+                <p className="text-[11px] font-mono text-slate-500">
+                  Certificate Ref: <strong>CSR/NSP/2026-27/TR-{(Date.now()).toString().slice(-6)}</strong> • Section 135 Compliant
+                </p>
+              </div>
+
+              <div className="text-left text-xs leading-relaxed space-y-3 pt-2 text-slate-700 border-t border-indigo-100">
+                <p>
+                  This is to certify that an aggregate grant amount of <strong className="text-indigo-950">{formatCurrency(disbursedAmount)}</strong> has been directly disbursed to eligible and verified student scholars under the scholarship schemes sponsored by <strong>{organizer?.organization || 'Trust'}</strong> on the National Scholarship Renewal Portal for Academic Year 2026-27.
+                </p>
+
+                <div className="bg-white p-4 rounded-xl border border-indigo-100 space-y-2 text-xs">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <span className="text-slate-400 text-[10px] uppercase font-bold block">Authorized Trustee</span>
+                      <strong className="text-slate-900 font-bold">{organizer?.fullName || 'Vikram Singhania'}</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 text-[10px] uppercase font-bold block">Designation</span>
+                      <span className="text-slate-800 font-medium">{organizer?.designation || 'Scholarship Program Director'}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 text-[10px] uppercase font-bold block">Total Scholars Awarded</span>
+                      <strong className="text-emerald-700 font-bold font-mono">{relevantApplications.filter(a => a.status === 'Approved').length} Beneficiaries</strong>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 text-[10px] uppercase font-bold block">Disbursal Pipeline</span>
+                      <span className="text-slate-800 font-medium">PFMS Direct Benefit Transfer</span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-500 italic">
+                  * All grant disbursements are processed through Aadhaar Payment Bridge (APBS) directly into authenticated scholar bank accounts with zero intermediary leakage.
+                </p>
+              </div>
+
+              {/* Signatures */}
+              <div className="pt-4 border-t border-indigo-100 flex items-center justify-between text-left text-[11px] text-slate-500">
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-12 bg-white border border-indigo-200 rounded-lg p-1 flex items-center justify-center">
+                    <QrCode className="size-10 text-indigo-950" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-indigo-950 block text-[10px]">Statutory Verification Hash</span>
+                    <span className="text-[9px] font-mono text-slate-400">CSR-AUTH-2026-NSP</span>
+                  </div>
+                </div>
+
+                <div className="text-right space-y-0.5">
+                  <div className="inline-block border-b border-indigo-950 pb-1 text-indigo-950 font-serif italic text-xs font-bold">
+                    {organizer?.fullName || 'Vikram Singhania'}
+                  </div>
+                  <span className="block text-[10px] font-bold text-slate-700">Program Director &amp; Trustee</span>
+                  <span className="block text-[9px] text-slate-400">CSR Statutory Audit Division</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

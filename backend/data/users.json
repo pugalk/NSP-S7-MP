@@ -1,10 +1,14 @@
 [
   {
-    "id": "usr_demo_01",
+    "id": "usr_student_01",
     "fullName": "Aravind Swaminathan",
     "email": "student@nsp.gov.in",
-    "password": "student123",
+    "passwordHash": "$2b$10$0Zyq.4cE.ExxoLd4Lrj7CufWZh94Mp5j2xLteXtPo1gGYqWbGkqrm",
     "role": "student",
+    "userIdentifier": "AU2022CS084",
+    "phone": "+91 98765 43210",
+    "department": "Computer Science and Engineering",
+    "organization": "Anna University, Chennai",
     "profile": {
       "fullName": "Aravind Swaminathan",
       "email": "student@nsp.gov.in",
@@ -25,11 +29,60 @@
       "attendance": "88",
       "familyIncome": "220000",
       "disability": false,
-      "disabilityPercentage": "",
       "residence": "Day Scholar",
-      "sportsAchievement": "None",
       "previousScholarship": "Central Sector Post-Matric Scholarship",
       "previousScholarshipId": "NSP-2025-419201"
+    }
+  },
+  {
+    "id": "usr_provider_01",
+    "fullName": "Vikram Singhania",
+    "email": "provider@nsp.gov.in",
+    "passwordHash": "$2b$10$GngjN1ZyZUyCWaq8Y5KtWOFXOp8v40qqlv35M5a6qGcQbipvA2SVu",
+    "role": "provider",
+    "userIdentifier": "ORG-TR-01",
+    "phone": "+91 98110 54321",
+    "organization": "National Higher Education Foundation & CSR Trust",
+    "department": "Scholarship Disbursal & CSR Grants Desk",
+    "profile": {
+      "fullName": "Vikram Singhania",
+      "email": "provider@nsp.gov.in",
+      "designation": "Scholarship Program Director",
+      "allocatedBudget": 25000000
+    }
+  },
+  {
+    "id": "usr_provider_alias",
+    "fullName": "Vikram Singhania",
+    "email": "organizer@nsp.gov.in",
+    "passwordHash": "$2b$10$9GX3.lEzkjvGJWTs5pn5oONZIfX1BhHG.L0w9mPznWkclPsrwHjou",
+    "role": "provider",
+    "userIdentifier": "ORG-TR-01",
+    "phone": "+91 98110 54321",
+    "organization": "National Higher Education Foundation & CSR Trust",
+    "department": "Scholarship Disbursal & CSR Grants Desk",
+    "profile": {
+      "fullName": "Vikram Singhania",
+      "email": "organizer@nsp.gov.in",
+      "designation": "Scholarship Program Director",
+      "allocatedBudget": 25000000
+    }
+  },
+  {
+    "id": "usr_admin_01",
+    "fullName": "Dr. Ramesh Kumar",
+    "email": "admin@nsp.gov.in",
+    "passwordHash": "$2b$10$l2ouarH1lbeo7jgoz9hm6ujgrgpcic0JLfswhrux8KBFf1Y6tk9m2",
+    "role": "admin",
+    "userIdentifier": "OFF-BLR-09",
+    "phone": "+91 94440 12345",
+    "organization": "Ministry of Education & Social Justice",
+    "department": "Directorate of Collegiate & Higher Education",
+    "profile": {
+      "fullName": "Dr. Ramesh Kumar",
+      "email": "admin@nsp.gov.in",
+      "role": "State Nodal Scrutiny Officer",
+      "department": "Directorate of Collegiate & Higher Education"
     }
   }
 ]

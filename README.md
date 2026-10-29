@@ -150,8 +150,3 @@ The application opens at: **`http://localhost:3000`**
 
 ---
 
-## 🔗 Original Project Reference
-- Lovable Portal: https://eligifind-scholarship.lovable.app/
-- Lovable Project ID: `lovp_4s89xnz4nh9xkaf7ngm3trv8dg`
-#   N S P - S 7 - M P  
- 

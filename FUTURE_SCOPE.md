@@ -23,7 +23,7 @@ graph TD
         UI --> OCR[AI Document Tamper & OCR Engine]
         UI --> ML[Predictive Dropout Risk ML Model]
         UI --> BC[Hyperledger Distributed Cross-Registry]
-    end
+    endno
     
     subgraph Layer 3: Financial Disbursal & Accessibility
         UI --> PFMS[PFMS & NPCI Aadhaar Payment Bridge]
