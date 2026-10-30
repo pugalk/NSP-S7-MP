@@ -125,3 +125,4 @@ server.on('error', (err) => {
 });
 
 export { app, server };
+export default app;
