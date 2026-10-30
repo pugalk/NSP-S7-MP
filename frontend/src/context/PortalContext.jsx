@@ -856,7 +856,7 @@ export function PortalProvider({ children }) {
       id: newId,
       code: newCode,
       name: schemeData.name || 'Untitled Scholarship Scheme',
-      provider: schemeData.provider || organizer?.organization || 'National Higher Education Trust',
+      provider: schemeData.provider || state.organizer?.organization || 'National Higher Education Trust',
       category: schemeData.category || 'Merit-Based',
       description: schemeData.description || 'Financial assistance program for eligible students.',
       benefits: schemeData.benefits || ['Annual tuition grant', 'Direct bank disbursal'],
@@ -904,7 +904,7 @@ export function PortalProvider({ children }) {
     });
 
     return { ok: true, scheme: newScheme };
-  }, [backendConnected, notify, organizer]);
+  }, [backendConnected, notify, state.organizer]);
 
   const removeScholarship = useCallback(async (schemeId) => {
     const sId = String(schemeId);

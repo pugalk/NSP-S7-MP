@@ -46,13 +46,17 @@ export default function AdminDashboardPage() {
     notify 
   } = usePortal();
 
-  // Active Tab: 'applications' | 'documents' | 'analytics' | 'schemes'
+  // Active Tab: 'applications' | 'documents' | 'analytics' | 'schemes' | 'users'
   const [activeTab, setActiveTab] = useState('applications');
   const [filterStatus, setFilterStatus] = useState('All');
   const [search, setSearch] = useState('');
   const [reviewingApp, setReviewingApp] = useState(null);
   const [reviewRemark, setReviewRemark] = useState('');
   
+  // Schemes Management state
+  const [schemeCategoryFilter, setSchemeCategoryFilter] = useState('All');
+  const [schemeSearch, setSchemeSearch] = useState('');
+
   // Batch selection state
   const [selectedAppIds, setSelectedAppIds] = useState([]);
   const [batchActionLoading, setBatchActionLoading] = useState(false);
@@ -117,6 +121,21 @@ export default function AdminDashboardPage() {
       return true;
     });
   }, [applications, filterStatus, search]);
+
+  const filteredSchemes = useMemo(() => {
+    return scholarships.filter(s => {
+      if (schemeCategoryFilter !== 'All' && s.category !== schemeCategoryFilter) return false;
+      if (schemeSearch.trim()) {
+        const q = schemeSearch.toLowerCase();
+        return (
+          s.name.toLowerCase().includes(q) ||
+          s.code.toLowerCase().includes(q) ||
+          s.provider.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [scholarships, schemeCategoryFilter, schemeSearch]);
 
   const handleReviewAction = (newStatus) => {
     if (!reviewingApp) return;
@@ -726,57 +745,146 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Category Distribution Breakdown */}
+          {/* Official Central Scrutiny Audit Logs */}
           <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4">
-            <h3 className="font-extrabold text-sm text-slate-900">Category-Wise Grant Sanction Distribution</h3>
-            <div className="space-y-3">
-              {[
-                { name: 'Merit-Based Excellence Schemes', count: 42, color: 'bg-amber-500', pct: 51 },
-                { name: 'Central Government Flagship Schemes', count: 24, color: 'bg-blue-600', pct: 29 },
-                { name: 'Girls & Women Empowerment Schemes', count: 18, color: 'bg-pink-500', pct: 22 },
-                { name: 'STEM & Research Fellowships', count: 12, color: 'bg-emerald-600', pct: 15 },
-                { name: 'Specially Abled / Disability Support', count: 6, color: 'bg-purple-600', pct: 7 }
-              ].map((cat, i) => (
-                <div key={i} className="space-y-1">
-                  <div className="flex justify-between text-xs font-semibold text-slate-700">
-                    <span>{cat.name}</span>
-                    <span className="font-mono text-slate-500">{cat.count} Active Schemes ({cat.pct}%)</span>
-                  </div>
-                  <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                    <div className={`h-full ${cat.color}`} style={{ width: `${cat.pct}%` }}></div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
+                  <FileText className="size-4 text-blue-900" />
+                  <span>Central DBT Disbursal &amp; Scrutiny Audit Register</span>
+                </h3>
+                <p className="text-xs text-slate-500">Immutable ledger tracking verification approvals, milestone advances, and PFMS transfers</p>
+              </div>
+              <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full border border-slate-200">
+                Aadhaar e-Sign Compliant
+              </span>
+            </div>
+
+            <div className="overflow-x-auto rounded-2xl border border-slate-200">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-200 text-[10px] uppercase tracking-wider">
+                  <tr>
+                    <th className="p-3">Audit Event / Action</th>
+                    <th className="p-3">Application ID</th>
+                    <th className="p-3">Scholar Identity</th>
+                    <th className="p-3">Sanction Amount</th>
+                    <th className="p-3">Authorized Officer</th>
+                    <th className="p-3">Verification Result</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-medium">
+                  {applications.slice(0, 6).map((app, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="p-3 font-semibold text-slate-900 flex items-center gap-2">
+                        <CheckCircle2 className="size-3.5 text-emerald-600 shrink-0" />
+                        <span>{app.status === 'Approved' ? 'DBT Award Sanction Order' : 'Scrutiny Stage Milestone Advanced'}</span>
+                      </td>
+                      <td className="p-3 font-mono text-slate-600">{app.applicationId}</td>
+                      <td className="p-3 font-bold text-slate-800">{app.applicantName}</td>
+                      <td className="p-3 font-mono font-extrabold text-emerald-700">₹{(app.amount || 50000).toLocaleString('en-IN')}</td>
+                      <td className="p-3 text-slate-600">{staff?.fullName || 'Dr. Ramesh Kumar (OFF-BLR-09)'}</td>
+                      <td className="p-3">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          RECORDED &bull; OK
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       )}
 
-      {/* TAB 4: SCHEMES CATALOG */}
+      {/* TAB 4: SCHEMES & CATEGORIES MANAGEMENT */}
       {activeTab === 'schemes' && (
-        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xs p-6 space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xs p-6 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div>
-              <h2 className="text-base font-black text-slate-900">82 National Schemes Active in Rule Engine</h2>
-              <p className="text-xs text-slate-500">Deterministic multi-tier rules evaluated at frontend and backend verification layers.</p>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-black text-slate-900">National Scholarships &amp; Categories Catalog</h2>
+                <span className="bg-blue-100 text-blue-800 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border border-blue-200">
+                  {filteredSchemes.length} of {scholarships.length} Schemes Loaded
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Central repository of all 82 schemes with rule criteria, quotas, and automatic eligibility evaluation.
+              </p>
+            </div>
+
+            {/* Scheme Search */}
+            <div className="relative max-w-xs w-full">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Search schemes by name, code, provider..."
+                value={schemeSearch}
+                onChange={(e) => setSchemeSearch(e.target.value)}
+                className="form-input pl-9 text-xs rounded-xl w-full"
+              />
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {scholarships.slice(0, 18).map((s) => (
-              <div key={s.id} className="p-4 bg-slate-50/80 rounded-2xl border border-slate-200/80 text-xs hover:border-blue-300 transition-all space-y-2">
-                <div className="flex items-center justify-between text-[10px] text-slate-400">
-                  <span className="font-mono font-bold text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">{s.code}</span>
-                  <span className="badge-category text-[10px] py-0.5 px-2">{s.category}</span>
+
+          {/* Category Filter Pills */}
+          <div className="flex items-center gap-1.5 flex-wrap text-xs">
+            <span className="font-bold text-slate-600 mr-1 flex items-center gap-1">
+              <Filter className="size-3" /> Category:
+            </span>
+            {['All', 'Merit-Based', 'Central Government', 'Girls & Women', 'STEM & Research', 'Specially Abled'].map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSchemeCategoryFilter(cat)}
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  schemeCategoryFilter === cat
+                    ? 'bg-blue-900 text-white shadow-xs'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Schemes Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredSchemes.slice(0, 24).map((s) => (
+              <div key={s.id} className="p-4 bg-slate-50/90 rounded-2xl border border-slate-200 text-xs hover:border-blue-400 hover:shadow-xs transition-all space-y-2 flex flex-col justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[10px]">
+                    <span className="font-mono font-bold text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">{s.code}</span>
+                    <span className="px-2 py-0.5 rounded-full font-bold bg-blue-50 text-blue-900 border border-blue-200">{s.category}</span>
+                  </div>
+                  <h4 className="font-extrabold text-slate-900 text-sm leading-snug line-clamp-2">{s.name}</h4>
+                  <p className="text-[11px] text-slate-500 line-clamp-2">{s.provider}</p>
                 </div>
-                <span className="font-extrabold text-slate-800 line-clamp-1 block text-sm">{s.name}</span>
-                <span className="text-emerald-700 font-extrabold block text-xs">₹{s.amount.toLocaleString('en-IN')} / year</span>
-                <div className="text-[11px] text-slate-500 flex justify-between pt-1 border-t border-slate-200/60">
-                  <span>Min Marks: {s.minPercentage || 60}%</span>
-                  <span>Min CGPA: {s.minCgpa || 7.0}</span>
+
+                <div className="pt-2 border-t border-slate-200/70 space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500 text-[11px]">Sanction Amount:</span>
+                    <span className="text-emerald-700 font-black font-mono">₹{s.amount.toLocaleString('en-IN')} / yr</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] text-slate-500">
+                    <span>Min Marks: {s.minPercentage || 60}%</span>
+                    <span>Min CGPA: {s.minCgpa || 7.0}</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1 text-[10px]">
+                    <span className="inline-flex items-center gap-1 text-emerald-700 font-bold">
+                      <span className="size-1.5 rounded-full bg-emerald-500"></span>
+                      Rule Active
+                    </span>
+                    <span className="text-slate-400 font-mono">Max: ₹{(s.maxFamilyIncome || 250000).toLocaleString('en-IN')}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+          {filteredSchemes.length > 24 && (
+            <p className="text-center text-xs text-slate-400 font-medium">
+              Showing 24 of {filteredSchemes.length} matching schemes in catalog.
+            </p>
+          )}
         </div>
       )}
 

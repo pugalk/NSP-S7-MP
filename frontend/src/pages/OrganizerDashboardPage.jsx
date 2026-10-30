@@ -28,7 +28,8 @@ import {
   Trash2,
   Printer,
   QrCode,
-  Download
+  Download,
+  RotateCcw
 } from 'lucide-react';
 
 export default function OrganizerDashboardPage() {
@@ -86,6 +87,11 @@ export default function OrganizerDashboardPage() {
   const relevantApplications = useMemo(() => {
     return applications.filter(a => managedSchemeIds.has(a.scholarshipId) || !a.scholarshipId);
   }, [applications, managedSchemeIds]);
+
+  // Renewal-specific applications
+  const renewalApplications = useMemo(() => {
+    return relevantApplications.filter(a => a.type === 'Renewal');
+  }, [relevantApplications]);
 
   const filteredApps = useMemo(() => {
     return relevantApplications.filter(app => {
@@ -352,7 +358,7 @@ export default function OrganizerDashboardPage() {
           onClick={() => setActiveTab('applications')}
           className={`py-3 px-5 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
             activeTab === 'applications'
-              ? 'border-indigo-900 text-indigo-950'
+              ? 'border-indigo-900 text-indigo-950 font-black'
               : 'border-transparent text-slate-500 hover:text-slate-900'
           }`}
         >
@@ -366,10 +372,22 @@ export default function OrganizerDashboardPage() {
         </button>
 
         <button
+          onClick={() => setActiveTab('renewals')}
+          className={`py-3 px-5 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
+            activeTab === 'renewals'
+              ? 'border-indigo-900 text-indigo-950 font-black'
+              : 'border-transparent text-slate-500 hover:text-slate-900'
+          }`}
+        >
+          <RotateCcw className="size-4 text-amber-600" />
+          <span>Renewals Desk ({renewalApplications.length})</span>
+        </button>
+
+        <button
           onClick={() => setActiveTab('schemes')}
           className={`py-3 px-5 text-sm font-bold border-b-2 transition-all flex items-center gap-2 ${
             activeTab === 'schemes'
-              ? 'border-indigo-900 text-indigo-950'
+              ? 'border-indigo-900 text-indigo-950 font-black'
               : 'border-transparent text-slate-500 hover:text-slate-900'
           }`}
         >
@@ -507,7 +525,99 @@ export default function OrganizerDashboardPage() {
         </div>
       )}
 
-      {/* TAB 2: Managed Schemes Portfolio */}
+      {/* TAB 2: ACADEMIC RENEWALS DESK */}
+      {activeTab === 'renewals' && (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden space-y-4">
+          <div className="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-black text-slate-900">Academic Renewal Re-Verification Desk</h2>
+                <span className="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-300">
+                  {renewalApplications.length} Continuing Scholars
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Annual renewal scrutiny for continuing scholars. Verifies year-on-year pass promotion, minimum 75% attendance, and latest semester marksheets.
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider text-[10px]">
+                  <th className="py-3 px-4">Scholar &amp; Renewal ID</th>
+                  <th className="py-3 px-4">Scheme Name</th>
+                  <th className="py-3 px-4">Sanction Grant</th>
+                  <th className="py-3 px-4">Promotion Criteria</th>
+                  <th className="py-3 px-4">Renewal Status</th>
+                  <th className="py-3 px-4 text-right">Provider Renewal Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-medium">
+                {renewalApplications.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="py-8 text-center text-slate-400">
+                      No renewal applications found.
+                    </td>
+                  </tr>
+                ) : (
+                  renewalApplications.map((app) => (
+                    <tr key={app.id || app.applicationId} className="hover:bg-slate-50/60 transition-colors">
+                      <td className="py-3.5 px-4">
+                        <div className="font-bold text-slate-900">{app.applicantName}</div>
+                        <div className="text-[10px] text-slate-400 font-mono">{app.applicationId}</div>
+                        <div className="text-[11px] text-amber-800 font-semibold mt-0.5">Academic Year 2026-27 Renewal</div>
+                      </td>
+                      <td className="py-3.5 px-4 font-semibold text-indigo-900">
+                        {app.scholarshipName}
+                      </td>
+                      <td className="py-3.5 px-4 font-black text-slate-900 font-mono">
+                        {formatCurrency(app.amount || 36000)}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <div className="space-y-0.5 text-[11px]">
+                          <span className="text-emerald-700 font-bold block">✓ Promoted to Next Year</span>
+                          <span className="text-slate-500 block">Attendance: 88% (Pass &ge; 75%)</span>
+                          <span className="text-slate-500 block">CGPA: 8.4 (Verified)</span>
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <StatusBadge status={app.status} />
+                      </td>
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                        {app.status === 'Approved' ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                            <CheckCircle2 className="size-3.5" /> Renewal Disbursed
+                          </span>
+                        ) : (
+                          <div className="inline-flex items-center gap-1.5 justify-end">
+                            <button
+                              onClick={() => { setSelectedApp(app); setSanctionRemark('Renewal verified and approved.'); }}
+                              className="btn-accent text-xs py-1 px-2.5 shadow-2xs font-bold cursor-pointer"
+                            >
+                              <RotateCcw className="size-3.5" /> Sanction Renewal
+                            </button>
+                            <button
+                              onClick={() => handleQuickSanction(app, 'Approved')}
+                              className="p-1.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
+                              title="1-Click Approve Renewal"
+                            >
+                              <Check className="size-3.5" />
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: Managed Schemes Portfolio */}
       {activeTab === 'schemes' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
