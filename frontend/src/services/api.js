@@ -5,7 +5,7 @@ import axios from 'axios';
  * Full JWT Bearer token authentication + MongoDB/REST backend integration.
  */
 
-const API_BASE = '/api';
+const API_BASE = 'https://nsp-s7-mp-1.onrender.com/api';
 
 export const apiClient = axios.create({
   baseURL: API_BASE,
